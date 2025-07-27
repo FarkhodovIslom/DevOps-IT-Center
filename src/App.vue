@@ -4,11 +4,11 @@
     <main>
       <AppHero />
       <AppServices />
+      <BenefitsSection />
       <AppCourses />
-      <AppStats />
-      <AppFAQ />
-      <AppInstructors />
-      <AppContact />
+      <TeachersSection />
+      <AppLocation />
+      <ContactSection />
     </main>
     <AppFooter />
   </div>
@@ -18,11 +18,11 @@
 import AppNavbar from './components/AppNavbar.vue'
 import AppHero from './components/AppHero.vue'
 import AppServices from './components/AppServices.vue'
+import BenefitsSection from './components/BenefitsSection.vue'
 import AppCourses from './components/AppCourses.vue'
-import AppStats from './components/AppStats.vue'
-import AppFAQ from './components/AppFAQ.vue'
-import AppInstructors from './components/AppInstructors.vue'
-import AppContact from './components/AppContact.vue'
+import AppLocation from './components/AppLocation.vue'
+import TeachersSection from './components/TeachersSection.vue'
+import ContactSection from './components/ContactSection.vue'
 import AppFooter from './components/AppFooter.vue'
 
 export default {
@@ -31,11 +31,11 @@ export default {
     AppNavbar,
     AppHero,
     AppServices,
+    BenefitsSection,
     AppCourses,
-    AppStats,
-    AppFAQ,
-    AppInstructors,
-    AppContact,
+    AppLocation,
+    TeachersSection,
+    ContactSection,
     AppFooter
   }
 }
