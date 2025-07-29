@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loader />
     <AppNavbar />
     <main>
       <AppHero />
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import Loader from './components/ui/loader.vue'
 import AppNavbar from './components/AppNavbar.vue'
 import AppHero from './components/AppHero.vue'
 import AppServices from './components/AppServices.vue'
@@ -28,6 +30,7 @@ import AppFooter from './components/AppFooter.vue'
 export default {
   name: 'App',
   components: {
+    Loader,
     AppNavbar,
     AppHero,
     AppServices,

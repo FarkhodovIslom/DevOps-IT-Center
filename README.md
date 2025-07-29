@@ -27,7 +27,7 @@ This project is built with Vue 3, TypeScript, and Vite.
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/FarkhodovIslom/DevOps-IT-Center.git
    ```
 2. Navigate to the project directory:
    ```bash

@@ -2,15 +2,9 @@
 
 
 /* || Global Styles || */
-
-
-
-
-
-
-
-
-
+html, body {
+  scroll-behavior: smooth;
+}
 
 
 

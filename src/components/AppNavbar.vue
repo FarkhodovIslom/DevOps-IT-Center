@@ -1,61 +1,138 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="nav-container">
       <!-- Logo -->
       <div class="logo-section">
-        <div class="logo">
-          <div class="logo-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M22 7L12 12L2 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <span class="logo-text">DEVOPS</span>
-          <span class="logo-subtitle">IT CENTER</span>
-        </div>
+        <a href="#" class="logo">
+          <img src="../../public/assets/logos/logo-textright__green-white.png" width="110" alt="DevOps">
+        </a>
       </div>
 
       <!-- Navigation Menu -->
       <div class="nav-menu">
         <!-- Kurslar Dropdown -->
         <div class="nav-item dropdown" @mouseenter="showDropdown('kurslar')" @mouseleave="hideDropdown('kurslar')">
+
           <button class="nav-link">
             Kurslar
             <svg class="dropdown-icon" :class="{ 'rotate': activeDropdown === 'kurslar' }" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
           </button>
+
           <transition name="dropdown">
             <div v-if="activeDropdown === 'kurslar'" class="dropdown-menu">
+
               <a href="#" class="dropdown-item">
-                <div class="item-icon"><i class="fa-solid fa-laptop"></i></div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-desktop"></i>
+                </div>
                 <div>
-                  <div class="item-title">Frontend Development</div>
-                  <div class="item-desc">React, Vue, Angular</div>
+                  <div class="item-title">Kompytuer Savodxonligi</div>
+                  <div class="item-desc">2 oy davom etadi</div>
                 </div>
               </a>
+
               <a href="#" class="dropdown-item">
-                <div class="item-icon"><i class="fa-solid fa-gear"></i></div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-award"></i>
+                </div>
                 <div>
-                  <div class="item-title">Backend Development</div>
-                  <div class="item-desc">Node.js, Python, Java</div>
+                  <div class="item-title">Malaka Oshirish (Soha xodimlari)</div>
+                  <div class="item-desc">1 oy davom etadi</div>
                 </div>
               </a>
+
               <a href="#" class="dropdown-item">
-                <div class="item-icon"><i class="fa-solid fa-cube"></i></div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-book-open"></i>
+                </div>
                 <div>
-                  <div class="item-title">3D</div>
-                  <div class="item-desc">Blender, Autocad, 3D Max</div>
+                  <div class="item-title">Foundation (ITga kirish)</div>
+                  <div class="item-desc">1 oy davom etadi</div>
                 </div>
               </a>
+
               <a href="#" class="dropdown-item">
-                <div class="item-icon"><i class="fa-solid fa-palette"></i></div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-laptop-code"></i>
+                </div>
                 <div>
-                  <div class="item-title">Graphic Design</div>
-                  <div class="item-desc">Python, TensorFlow, PyTorch</div>
+                  <div class="item-title">Front-End Dasturlash</div>
+                  <div class="item-desc">8 oy davom etadi</div>
                 </div>
               </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <div>
+                  <div class="item-title">Grafik va Web dizayn</div>
+                  <div class="item-desc">6 oy davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-cube"></i>
+                </div>
+                <div>
+                  <div class="item-title">3D Modeling (3D Max, AutoCad)</div>
+                  <div class="item-desc">6 oy davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-mobile"></i>
+                </div>
+                <div>
+                  <div class="item-title">SMM + Mobilografiya</div>
+                  <div class="item-desc">3 oy davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                  <div class="item-title">1C Buxgalteriya</div>
+                  <div class="item-desc">3 oy davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                  <div class="item-title">Robototexnika</div>
+                  <div class="item-desc">3 oy davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <div>
+                  <div class="item-title">IT English - Ingliz tili</div>
+                  <div class="item-desc">6 oydan oshiqroq davom etadi</div>
+                </div>
+              </a>
+
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-square-root-variable"></i>
+                </div>
+                <div>
+                  <div class="item-title">Matematika</div>
+                  <div class="item-desc">6 oydan oshiqroq davom etadi</div>
+                </div>
+              </a>
+
             </div>
           </transition>
         </div>
@@ -71,27 +148,70 @@
           <transition name="dropdown">
             <div v-if="activeDropdown === 'xizmatlar'" class="dropdown-menu">
               <a href="#" class="dropdown-item">
-                <div class="item-icon">🎯</div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-pen-ruler"></i>
+                </div>
                 <div>
-                  <div class="item-title">Konsalting</div>
-                  <div class="item-desc">IT strategiya va maslahat</div>
+                  <div class="item-title">Grafik dizaynerlik ishlari</div>
+                  <div class="item-desc">Logo, Vizitka, Post, ...</div>
                 </div>
               </a>
               <a href="#" class="dropdown-item">
-                <div class="item-icon">🚀</div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-code"></i>
+                </div>
                 <div>
-                  <div class="item-title">Loyiha ishlab chiqish</div>
-                  <div class="item-desc">Full-stack development</div>
+                  <div class="item-title">Websayt tayyorlash</div>
+                  <div class="item-desc">Zamonaviy yechimga ega websaytlar yaratish</div>
                 </div>
               </a>
               <a href="#" class="dropdown-item">
-                <div class="item-icon">☁️</div>
+                <div class="item-icon">
+                  <i class="fa-solid fa-store"></i>
+                </div>
                 <div>
-                  <div class="item-title">Cloud xizmatlari</div>
-                  <div class="item-desc">AWS, Azure, GCP</div>
+                  <div class="item-title">SMM xizmatlar</div>
+                  <div class="item-desc">Biznesingizni bir qadam oldinga olib chiqish</div>
+                </div>
+              </a>
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-globe"></i>
+                </div>
+                <div>
+                  <div class="item-title">Online xizmatlar</div>
+                  <div class="item-desc">Ijtimoiy tarmoq orqali qilinadigan ishlar</div>
+                </div>
+              </a>
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-wrench"></i>  
+                </div>
+                <div>
+                  <div class="item-title">Kompyuterni tamirlash</div>
+                  <div class="item-desc">OS, Driverlar o'rnatish va boshqalar</div>
+                </div>
+              </a>
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <div>
+                  <div class="item-title">Telegram Bot</div>
+                  <div class="item-desc">Telegram bot va mini-applar yaratish</div>
+                </div>
+              </a>
+              <a href="#" class="dropdown-item">
+                <div class="item-icon">
+                  <i class="fa-solid fa-laptop"></i>
+                </div>
+                <div>
+                  <div class="item-title">Kompytuer sotuvi</div>
+                  <div class="item-desc">Arzon narxda kompyuter va noutbuk sotuvi</div>
                 </div>
               </a>
             </div>
+            
           </transition>
         </div>
       </div>
@@ -99,11 +219,7 @@
       <!-- Right Section -->
       <div class="nav-actions">
         <button class="cert-btn">
-          <svg class="cert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M12 15l3.5-2L12 11l-3.5 2L12 15z"/>
-            <path d="M12 15l0 6l3.5-2L12 21l-3.5-2L12 21l0-6z"/>
-            <circle cx="12" cy="8" r="6"/>
-          </svg>
+          <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
           Sertifikatlar
         </button>
         
@@ -137,8 +253,15 @@
             <div v-if="mobileDropdowns.kurslar" class="mobile-submenu">
               <a href="#" class="mobile-sublink">Frontend Development</a>
               <a href="#" class="mobile-sublink">Backend Development</a>
-              <a href="#" class="mobile-sublink">DevOps Engineering</a>
+              <a href="#" class="mobile-sublink">3D Modeling</a>
+              <a href="#" class="mobile-sublink">Graphic Design</a>
               <a href="#" class="mobile-sublink">AI & Machine Learning</a>
+              <a href="#" class="mobile-sublink">Mobile Development</a>
+              <a href="#" class="mobile-sublink">Cybersecurity</a>
+              <a href="#" class="mobile-sublink">DevOps Engineering</a>
+              <a href="#" class="mobile-sublink">Data Science</a>
+              <a href="#" class="mobile-sublink">Game Development</a>
+              <a href="#" class="mobile-sublink">Video Editing</a>
             </div>
           </transition>
         </div>
@@ -155,6 +278,10 @@
               <a href="#" class="mobile-sublink">Konsalting</a>
               <a href="#" class="mobile-sublink">Loyiha ishlab chiqish</a>
               <a href="#" class="mobile-sublink">Cloud xizmatlari</a>
+              <a href="#" class="mobile-sublink">Xavfsizlik auditi</a>
+              <a href="#" class="mobile-sublink">Mobile app development</a>
+              <a href="#" class="mobile-sublink">AI integratsiya</a>
+              <a href="#" class="mobile-sublink">DevOps setup</a>
             </div>
           </transition>
         </div>
@@ -311,7 +438,7 @@ export default {
   transform: rotate(180deg);
 }
 
-/* Dropdown Menu */
+/* Dropdown Menu - Обновленная версия для поддержки большего количества элементов */
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -319,20 +446,46 @@ export default {
   background: white;
   border-radius: 1rem;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  min-width: 280px;
-  overflow: hidden;
+  min-width: 300px;
+  max-width: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Добавляем кастомный скроллбар */
+  scrollbar-width: thin;
+  scrollbar-color: #667eea #f1f1f1;
+}
+
+/* Кастомный скроллбар для Webkit браузеров */
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .dropdown-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   color: #374151;
   text-decoration: none;
   transition: all 0.3s ease;
   border-bottom: 1px solid #f3f4f6;
+  position: relative;
 }
 
 .dropdown-item:last-child {
@@ -346,7 +499,7 @@ export default {
 }
 
 .item-icon {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -355,6 +508,7 @@ export default {
   background: #f8fafc;
   border-radius: 0.75rem;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .dropdown-item:hover .item-icon {
@@ -364,13 +518,15 @@ export default {
 
 .item-title {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   margin-bottom: 0.25rem;
+  line-height: 1.2;
 }
 
 .item-desc {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   opacity: 0.7;
+  line-height: 1.3;
 }
 
 /* Nav Actions */
@@ -463,12 +619,14 @@ export default {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Mobile Menu */
+/* Mobile Menu - Обновлено для поддержки всех курсов */
 .mobile-menu {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   padding: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .mobile-item {
@@ -511,6 +669,8 @@ export default {
   border-radius: 0.75rem;
   margin-top: 0.5rem;
   overflow: hidden;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .mobile-sublink {
@@ -520,6 +680,11 @@ export default {
   text-decoration: none;
   border-bottom: 1px solid #e5e7eb;
   transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.mobile-sublink:last-child {
+  border-bottom: none;
 }
 
 .mobile-sublink:hover {
@@ -590,7 +755,7 @@ export default {
 
 .mobile-dropdown-enter-to, .mobile-dropdown-leave-from {
   opacity: 1;
-  max-height: 200px;
+  max-height: 300px;
 }
 
 /* Responsive */
@@ -619,6 +784,17 @@ export default {
 @media (max-width: 480px) {
   .logo-subtitle {
     display: none;
+  }
+  
+  .mobile-menu {
+    padding: 1.5rem;
+  }
+}
+
+/* Дополнительные стили для больших экранов когда дропдаун может быть длинным */
+@media (min-height: 800px) {
+  .dropdown-menu {
+    max-height: 600px;
   }
 }
 </style>
