@@ -250,19 +250,19 @@
             </svg>
           </button>
           <transition name="mobile-dropdown">
-            <div v-if="mobileDropdowns.kurslar" class="mobile-submenu">
-              <a href="#" class="mobile-sublink">Frontend Development</a>
-              <a href="#" class="mobile-sublink">Backend Development</a>
-              <a href="#" class="mobile-sublink">3D Modeling</a>
-              <a href="#" class="mobile-sublink">Graphic Design</a>
-              <a href="#" class="mobile-sublink">AI & Machine Learning</a>
-              <a href="#" class="mobile-sublink">Mobile Development</a>
-              <a href="#" class="mobile-sublink">Cybersecurity</a>
-              <a href="#" class="mobile-sublink">DevOps Engineering</a>
-              <a href="#" class="mobile-sublink">Data Science</a>
-              <a href="#" class="mobile-sublink">Game Development</a>
-              <a href="#" class="mobile-sublink">Video Editing</a>
-            </div>
+<div v-if="mobileDropdowns.kurslar" class="mobile-submenu">
+  <a href="#" class="mobile-sublink">Kompytuer Savodxonligi</a>
+  <a href="#" class="mobile-sublink">Malaka Oshirish (Soha xodimlari)</a>
+  <a href="#" class="mobile-sublink">Foundation (ITga kirish)</a>
+  <a href="#" class="mobile-sublink">Front-End Dasturlash</a>
+  <a href="#" class="mobile-sublink">Grafik va Web dizayn</a>
+  <a href="#" class="mobile-sublink">3D Modeling (3D Max, AutoCad)</a>
+  <a href="#" class="mobile-sublink">SMM + Mobilografiya</a>
+  <a href="#" class="mobile-sublink">1C Buxgalteriya</a>
+  <a href="#" class="mobile-sublink">Robototexnika</a>
+  <a href="#" class="mobile-sublink">IT English - Ingliz tili</a>
+  <a href="#" class="mobile-sublink">Matematika</a>
+</div>
           </transition>
         </div>
         
@@ -274,15 +274,15 @@
             </svg>
           </button>
           <transition name="mobile-dropdown">
-            <div v-if="mobileDropdowns.xizmatlar" class="mobile-submenu">
-              <a href="#" class="mobile-sublink">Konsalting</a>
-              <a href="#" class="mobile-sublink">Loyiha ishlab chiqish</a>
-              <a href="#" class="mobile-sublink">Cloud xizmatlari</a>
-              <a href="#" class="mobile-sublink">Xavfsizlik auditi</a>
-              <a href="#" class="mobile-sublink">Mobile app development</a>
-              <a href="#" class="mobile-sublink">AI integratsiya</a>
-              <a href="#" class="mobile-sublink">DevOps setup</a>
-            </div>
+<div v-if="mobileDropdowns.xizmatlar" class="mobile-submenu">
+  <a href="#" class="mobile-sublink">Grafik dizaynerlik ishlari</a>
+  <a href="#" class="mobile-sublink">Websayt tayyorlash</a>
+  <a href="#" class="mobile-sublink">SMM xizmatlar</a>
+  <a href="#" class="mobile-sublink">Online xizmatlar</a>
+  <a href="#" class="mobile-sublink">Kompyuterni tamirlash</a>
+  <a href="#" class="mobile-sublink">Telegram Bot</a>
+  <a href="#" class="mobile-sublink">Kompytuer sotuvi</a>
+</div>
           </transition>
         </div>
 
