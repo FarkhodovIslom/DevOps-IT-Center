@@ -94,25 +94,25 @@ export default {
           id: 1,
           name: 'Aliyev Samandar',
           description: 'Grafik va Web-dizayn kursi bo\'yicha',
-          image: '../../public/assets/images/student__card-image.jpg'
+          image: '/assets/images/student__card-image.jpg'
         },
         {
           id: 2,
           name: 'Aliyev Samandar',
           description: 'Grafik va Web-dizayn kursi bo\'yicha',
-          image: '../../public/assets/images/student__card-image.jpg'
+          image: '/assets/images/student__card-image.jpg'
         },
         {
           id: 3,
           name: 'Aliyev Samandar',
           description: 'Grafik va Web-dizayn kursi bo\'yicha',
-          image: '../../public/assets/images/student__card-image.jpg'
+          image: '/assets/images/student__card-image.jpg'
         },
         {
           id: 4,
           name: 'Aliyev Samandar',
           description: 'Grafik va Web-dizayn kursi bo\'yicha',
-          image: '../../public/assets/images/student__card-image.jpg'
+          image: '/assets/images/student__card-image.jpg'
         }
       ]
     }
