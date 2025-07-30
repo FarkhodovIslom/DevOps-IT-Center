@@ -1,5 +1,5 @@
 <template>
-  <div class="cta-container">
+  <div id="contact" class="cta-container">
     <!-- Animated Background -->
     <div class="animated-bg">
       <div class="bg-element"></div>
@@ -15,8 +15,8 @@
           yordamni beramiz!
         </h2>
         <p class="cta-description">
-          Mo'ltubvargingizni qabul qiling va sizga tez<br>
-          fursat da aloqaga chiqamiz
+          Ma'lumotlaringizni qoldiring va sizga tez<br>
+          fursatda aloqaga chiqamiz
         </p>
       </div>
 
@@ -153,7 +153,7 @@ export default {
   position: relative;
   background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
   padding: 4rem 2rem;
-  margin: 4rem 0;
+  margin: 4rem 0 0 0;
   overflow: hidden;
 }
 

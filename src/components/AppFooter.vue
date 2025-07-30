@@ -1,4 +1,4 @@
-<template>
+``<template>
   <footer class="footer">
     <div class="footer-container">
       <!-- Main Footer Content -->
@@ -8,7 +8,7 @@
           <div class="logo-container">
             <div class="logo">
               <div class="logo-icon">
-                <span class="logo-text">dj</span>
+                <img src="../../public/assets/logos/logo-default.png" width="40" alt="">
               </div>
               <div class="logo-title">
                 <h3>DEVOPS<br>IT CENTER</h3>
@@ -25,7 +25,7 @@
             </a>
             <p class="address">
               Urgut shaharchasi, Do'stlik MFY,<br>
-              Navqijahon ko'chasi 120-uy
+              Navoiyshox ko'chasi 120-uy
             </p>
           </div>
         </div>
@@ -34,12 +34,12 @@
         <div class="footer-section footer-links">
           <h4 class="section-title">Ma'lumotlar</h4>
           <ul class="link-list">
-            <li><a href="#" class="footer-link">Kurslar</a></li>
-            <li><a href="#" class="footer-link">Xizmatlar</a></li>
-            <li><a href="#" class="footer-link">Sertifikatlar</a></li>
-            <li><a href="#" class="footer-link">Biz haqimda</a></li>
-            <li><a href="#" class="footer-link">Ta'lim xizmatlarini qo'yish ollali</a></li>
-            <li><a href="#" class="footer-link">Biz haqimizda</a></li>
+            <li><a href="#courses" class="footer-link">Kurslar</a></li>
+            <li><a href="#services" class="footer-link">Xizmatlar</a></li>
+            <li><a href="#certificates" class="footer-link">Sertifikatlar</a></li>
+            <li><a href="#" class="footer-link">Bo'lib to'lash</a></li>
+            <li><a href="#" class="footer-link">Ta'lim xarajatlarini qaytarib olish</a></li>
+            <li><a href="#about" class="footer-link">Biz haqimizda</a></li>
           </ul>
         </div>
 
@@ -47,21 +47,21 @@
         <div class="footer-section footer-certificates">
           <div class="certificates-grid">
             <div class="certificate-item">
-              <div class="certificate-image">
+              <a href="../../public/assets/images/certificate__footer-card.png" target="_blank" class="certificate-image">
                 <i class="fas fa-certificate"></i>
-              </div>
+              </a>
               <span class="certificate-label">Guvohnoma</span>
             </div>
             <div class="certificate-item">
-              <div class="certificate-image">
+              <a href="../../public/assets/images/residency__footer-card.png" target="_blank" class="certificate-image">
                 <i class="fas fa-award"></i>
-              </div>
+              </a>
               <span class="certificate-label">IT Park rezidentlik</span>
             </div>
             <div class="certificate-item">
-              <div class="certificate-image">
+              <a href="../../public/assets/images/confirmation__footer-card.png" target="_blank" class="certificate-image">
                 <i class="fas fa-medal"></i>
-              </div>
+              </a>
               <span class="certificate-label">Tasdiqlama</span>
             </div>
           </div>
@@ -163,19 +163,15 @@ export default {
 .logo-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #00d4ff, #667eea);
+  background: linear-gradient(135deg, #097287, #253064);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
 }
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+.logo-icon img {
+  filter: saturate(130%) brightness(120%);
 }
 
 .logo-title h3 {

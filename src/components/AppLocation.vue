@@ -14,18 +14,18 @@
         </div>
 
         <div class="building-image">
-          <img src="" alt="Bizning binomiz" />
+          <img src="../../public/assets/images/itcenter-building__location-image.png" alt="Bizning binomiz" />
           <div class="image-overlay"></div>
         </div>
 
         <div class="contact-info">
           <div class="info-section">
-            <h3>Urgut tuman, Do'stlik MFY, Navqijahon ko'chasi 120-uy</h3>
+            <h3>Urgut tuman, Do'stlik MFY, Navoiyshox ko'chasi 120-uy</h3>
           </div>
 
           <div class="info-section">
             <div class="info-label">Mo'ljal:</div>
-            <p>Hamkorbank yonidagi Uzgorsug'urta binosining 2-qavati</p>
+            <p>Hamkorbank yonidagi Uzagrosug'urta binosining 2-qavati</p>
           </div>
 
           <div class="info-section">
@@ -52,40 +52,24 @@
       <!-- Map Container -->
       <div class="map-container">
         <div class="map-header">
-          <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Google Xaritalardan qidiruv" readonly>
-            <div class="map-controls">
-              <button class="map-btn">
-                <i class="fas fa-directions"></i>
-              </button>
-              <button class="map-btn">
-                <i class="fas fa-expand"></i>
-              </button>
-              <button class="map-btn">
-                <i class="fas fa-layer-group"></i>
-              </button>
-            </div>
-          </div>
+          <h3>Xaritada ko'rish</h3>
+          <button @click="openDirections" class="directions-btn">
+            <i class="fas fa-directions"></i>
+            Yo'nalish
+          </button>
         </div>
 
         <div class="map-content">
-          <!-- Placeholder for Google Maps -->
-          <div class="map-placeholder">
-            <div class="map-marker">
-              <i class="fas fa-map-marker-alt"></i>
-              <div class="marker-pulse"></div>
-            </div>
-            <div class="map-overlay-text">
-              <h4>IT Center</h4>
-              <p>Urgut, Samarqand</p>
-            </div>
-          </div>
-          
-          <!-- Google Maps attribution -->
-          <div class="map-attribution">
-            <img src="https://developers.google.com/maps/documentation/images/google_on_white.png" alt="Google" class="google-logo">
-          </div>
+          <!-- Real Google Maps iframe -->
+          <iframe
+            :src="mapSrc"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
       </div>
     </div>
@@ -97,14 +81,25 @@ export default {
   name: 'AppLocation',
   data() {
     return {
-      // Можно добавить reactive данные если нужно
+      latitude: 39.3967,
+      longitude: 66.6983,
+      address: "Urgut tuman, Do'stlik MFY, Navoiyshox ko'chasi 120-uy, Uzbekistan"
+    }
+  },
+  computed: {
+    mapSrc() {
+      
+      const baseUrl = 'https://www.google.com/maps/embed/v1/place';
+      const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';  
+      const query = encodeURIComponent(this.address);
+      
+      return `https://www.google.com/maps/embed?pb=!1m21!1m12!1m3!1d385.2625426295737!2d67.23878918272594!3d39.42185539191596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m6!3e2!4m3!3m2!1d39.4218799!2d67.2387475!4m0!5e0!3m2!1sru!2s!4v1753847595784!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"`;
     }
   },
   methods: {
     openDirections() {
-      // Открытие маршрута в Google Maps
-      const address = "Urgut tuman, Do'stlik MFY, Navqijahon ko'chasi 120-uy, Uzbekistan";
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+      
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(this.address)}`;
       window.open(url, '_blank');
     },
     callPhone(number) {
@@ -171,7 +166,7 @@ export default {
 
 /* Contact Card */
 .contact-card {
-  background: linear-gradient( #667eea 0%, #764ba2 100%);
+  background: linear-gradient( #fcfcfc 0%, #f9f8fae0 100%);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 2rem;
@@ -198,12 +193,11 @@ export default {
 .card-header h2 {
   font-size: 1.8rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #0ff, #00d4ff);
+  background: linear-gradient(135deg, #475dc0, #643693);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 1.5rem;
-  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
 /* Building Image */
@@ -245,7 +239,7 @@ export default {
 
 /* Contact Info */
 .contact-info {
-  color: white;
+  color: #523aa3;
 }
 
 .info-section {
@@ -262,13 +256,13 @@ export default {
 .info-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #44e0ff;
+  color: #475dc0;
   margin-bottom: 0.5rem;
 }
 
 .info-section p {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #0f0f0fe6;
   line-height: 1.5;
 }
 
@@ -283,32 +277,32 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  color: white;
+  color: #523aa3;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
   padding: 0.8rem 1rem;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  background: #475dc04a;
+  border: 1px solid #523aa3;
   border-radius: 1rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
 
 .phone-link:hover {
-  background: rgba(0, 212, 255, 0.2);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  background: #556dda66;
+  box-shadow: 0 0 5px #475dc03e;
   transform: translateX(5px);
 }
 
 .phone-link i {
   font-size: 1.1rem;
-  color: #00d4ff;
+  color: #475dc0;
 }
 
-/* Map Container */
+/* Map Container - Updated with same style as contact-card */
 .map-container {
-  background:  linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient( #fdfbff 0%, #f9f8fae9 100%);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 2rem;
@@ -320,141 +314,71 @@ export default {
   animation: slideInRight 0.8s ease-out;
 }
 
+.map-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(118, 75, 162, 0.05));
+  z-index: -1;
+}
+
 .map-header {
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.search-bar {
+.map-header h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #475dc0, #643693);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.directions-btn {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 1rem;
-  padding: 0.8rem 1rem;
-  gap: 1rem;
-}
-
-.search-bar i {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
-}
-
-.search-bar input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 0.9rem;
-}
-
-.search-bar input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.map-controls {
-  display: flex;
   gap: 0.5rem;
-}
-
-.map-btn {
-  width: 35px;
-  height: 35px;
-  border-radius: 0.5rem;
-  background: rgba(0, 212, 255, 0.1);
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  color: #00d4ff;
+  background: #e0e3ee4d;
+  border: 1px solid #523aa3;
+  color: #523aa3;
+  padding: 0.8rem 1.2rem;
+  border-radius: 1rem;
   cursor: pointer;
+  font-weight: 600;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  backdrop-filter: blur(10px);
 }
 
-.map-btn:hover {
-  background: rgba(0, 212, 255, 0.2);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+.directions-btn:hover {
+  background: #556dda66;
+  box-shadow: 0 0 5px #475dc03e;
+  transform: translateY(-2px);
+}
+
+.directions-btn i {
+  color: #475dc0;
 }
 
 /* Map Content */
 .map-content {
   height: 400px;
   position: relative;
-  background: linear-gradient(135deg, #4a90e2, #357abd);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 0 0 2rem 2rem;
+  overflow: hidden;
 }
 
-.map-placeholder {
-  position: relative;
-  text-align: center;
-  z-index: 2;
-}
-
-.map-marker {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.map-marker i {
-  font-size: 3rem;
-  color: #ff4444;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  z-index: 2;
-  position: relative;
-}
-
-.marker-pulse {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 68, 68, 0.3);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.8);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.map-overlay-text {
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.map-overlay-text h4 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.map-overlay-text p {
-  font-size: 1rem;
-  opacity: 0.9;
-}
-
-.map-attribution {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  z-index: 3;
-}
-
-.google-logo {
-  height: 20px;
-  opacity: 0.8;
+.map-content iframe {
+  border-radius: 0 0 2rem 2rem;
+  filter: saturate(0.9) contrast(1.1);
 }
 
 /* Animations */
@@ -502,7 +426,14 @@ export default {
     padding: 1.5rem;
   }
   
-  .card-header h2 {
+  .map-header {
+    padding: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .card-header h2, .map-header h3 {
     font-size: 1.5rem;
   }
   
@@ -517,6 +448,10 @@ export default {
   .phone-link {
     padding: 0.6rem 0.8rem;
     font-size: 0.9rem;
+  }
+  
+  .directions-btn {
+    justify-content: center;
   }
 }
 </style>

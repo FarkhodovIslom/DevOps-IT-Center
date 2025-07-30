@@ -4,11 +4,11 @@
       <!-- Header -->
       <div class="section-header">
         <h2 class="section-title">"DevOps IT Center" bu -</h2>
-        <div class="floating-chat-icon">
+        <a href="#contact" class="floating-chat-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
-        </div>
+        </a>
       </div>
 
       <!-- Features Grid -->
@@ -53,9 +53,9 @@
           </div>
           
           <p class="course-description">
-            IT sohasiga ingliz tili va matematika kurslaridn 
-            chiqarilganitirgann kurslarga ta'lim olib, o'z kelgingizni 
-            yaratisl
+            IT sohasiga ingliz tili va matematika kurslaridan 
+            chuqurlashtirilgan kurslarda ta'lim olib, o'z kelajagingizni 
+            yarating!
           </p>
           
           <div class="course-visual">
@@ -91,17 +91,17 @@
           </div>
           
           <p class="course-description">
-            IT sohasida keng ko'lamli xizmatlarni taqdim etadi. 
+            IT sohasida keng qo'lamli xizmatlarni taqdim etadi. 
             Dasturlash, Grafik dizayn, SMM va Kompyuter ta'mirlash 
-            ishlarini o'z kasbdan ustalaringa topshirg!
+            ishlarini o'z kasbini ustalaringa ishoning!
           </p>
           
           <div class="course-visual">
             <div class="service-icons">
-              <div class="service-icon">💻</div>
-              <div class="service-icon">🎨</div>
-              <div class="service-icon">📱</div>
-              <div class="service-icon">🔧</div>
+              <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+              <div class="service-icon"><i class="fas fa-palette"></i></div>
+              <div class="service-icon"><i class="fas fa-mobile-phone"></i></div>
+              <div class="service-icon"><i class="fas fa-wrench"></i></div>
             </div>
           </div>
           
@@ -118,7 +118,7 @@
       <!-- Statistics Section -->
       <div class="stats-section">
         <div class="stats-intro">
-          <h3 class="stats-title">IT sohasiga ixtisoslashgan, o'z jamoasiga professionallarni jamlaagan ta'lim va xizmatlar markazi</h3>
+          <h3 class="stats-title">IT sohasiga ixtisoslashgan, o'z jamoasiga professionallarni jamlagan ta'lim va xizmatlar markazi</h3>
         </div>
         
         <div class="stats-grid">
@@ -163,20 +163,20 @@ export default {
       currentCounts: [0, 0, 0],
       features: [
         {
-          title: 'Dasturlash',
-          description: 'Dasturlash tillani yo marketing kabi zamonaviy kasblar o\'rgatiladigan markaz.',
+          title: 'Zamonaviy Kasblar',
+          description: 'Dasturlash, dizayn va marketing kabi zamonaviy kasblar o\'rgatadigan markaz.',
           icon: 'CodeIcon',
           iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
         },
         {
-          title: 'Marketing',
-          description: 'Zamonaviy kasblar yordamida jaratarsi hayotini yaxshilovchi va kelajagida bo\'lgan ishonchli mustahkanlovchi markaz.',
+          title: 'Kelajakka Murojaat',
+          description: 'Zamonaviy kasblar yordamida insonlar hayotini yaxshilovchi va kelajakka bo\'lgan ishonchni mustahkanlovchi maskan.',
           icon: 'MarketingIcon',
           iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
         },
         {
-          title: 'Professional',
-          description: 'IT sohasidri barcha xizmatlarimiz o\'z kashrining ustalaridan boshqarilgan professional jamlangar markaz.',
+          title: 'IT Ekspertlari',
+          description: 'IT sohasidagi barcha xizmatlarni o\'z kasbining ustalari tomonidan bajaradigan professionallar jamlangan maskan.',
           icon: 'ProfessionalIcon',
           iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
         }
@@ -184,14 +184,14 @@ export default {
       stats: [
         {
           number: 350,
-          label: 'IT sohas va kompyuter kurslarim tugallagan o\'quvchilarimiz',
+          label: 'IT sohasi va Kompyuter kurslarini tugatgan o\'quvchilarimiz',
           description: '',
           color: '#00d4ff',
           bgGradient: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%)'
         },
         {
           number: 200,
-          label: 'Davlat va soha-sorvana xodimlarimiz malaka oshirilgan',
+          label: 'Davlat va soha-korxona xodimlarining malaka oshirganlar',
           description: '',
           color: '#667eea',
           bgGradient: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(102, 126, 234, 0.05) 100%)'
@@ -309,20 +309,17 @@ export default {
   position: relative;
   overflow: hidden;
 }
-
 .features-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
-
 /* Section Header */
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
   position: relative;
 }
-
 .section-title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -333,7 +330,6 @@ export default {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .floating-chat-icon {
   position: absolute;
   top: -20px;
@@ -349,12 +345,10 @@ export default {
   animation: float 3s ease-in-out infinite;
   box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
 }
-
 .floating-chat-icon svg {
   width: 24px;
   height: 24px;
 }
-
 /* Features Grid */
 .features-grid {
   display: grid;
@@ -362,7 +356,6 @@ export default {
   gap: 2rem;
   margin-bottom: 4rem;
 }
-
 .feature-card {
   background: white;
   border-radius: 1.5rem;
@@ -375,21 +368,17 @@ export default {
   transition: all 0.6s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .feature-card.visible {
   transform: translateY(0);
   opacity: 1;
 }
-
 .feature-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
-
 .feature-icon {
   margin-bottom: 1.5rem;
 }
-
 .icon-wrapper {
   width: 70px;
   height: 70px;

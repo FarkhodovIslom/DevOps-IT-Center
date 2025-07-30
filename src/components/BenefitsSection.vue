@@ -20,7 +20,7 @@
           @mouseenter="playHoverSound"
         >
           <div class="benefit-icon" :style="{ background: benefit.iconBg }">
-            <component :is="benefit.icon" />
+            <font-awesome-icon :icon="benefit.icon" />
           </div>
           
           <div class="benefit-content">
@@ -63,59 +63,72 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { 
+  faUsers,
+  faGraduationCap,
+  faMoneyBillWave,
+  faTrophy,
+  faHandHoldingUsd,
+  faCertificate
+} from '@fortawesome/free-solid-svg-icons';
+
 export default {
   name: 'BenefitsSection',
+  components: {
+    FontAwesomeIcon
+  },
   data() {
     return {
       visibleCards: [],
       benefits: [
         {
-          title: 'Bepul koyvorking',
-          description: 'Darsdan tashqari holatlda, vaqtingiz bo\'lganida shuq ulflrish uchun bepul koyvorking va WiFi dan foydalanish imkoniyati mavjud.',
-          icon: 'CoworkingIcon',
-          iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          hoverColor: '#667eea',
-          glowGradient: 'radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%)'
+          title: 'Bepul co-working',
+          description: 'Darsdan tashqari vaqtlarda, vaqtingiz bo\'lganda shug\'ullanish uchun bepul co-working va WiFi dan foydalanish imkoniyati mavjud.',
+          icon: faUsers,
+          iconBg: 'linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)',
+          hoverColor: '#0072ff',
+          glowGradient: 'radial-gradient(circle, rgba(0, 114, 255, 0.2) 0%, transparent 70%)'
         },
         {
           title: 'Sifatli ta\'lim',
-          description: 'Darslarimizda 100% amaliy darslar bo\'lishi va katta tajribaga ega ustalardan ta\'lim olish imkoniyati.',
-          icon: 'QualityIcon',
-          iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          hoverColor: '#f5576c',
-          glowGradient: 'radial-gradient(circle, rgba(245, 87, 108, 0.2) 0%, transparent 70%)'
+          description: 'Darslarimizda 100% amaliy mashg\'ulotlar bo\'lib, katta tajribaga ega ustozlardan ta\'lim olish imkoniyati.',
+          icon: faGraduationCap,
+          iconBg: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
+          hoverColor: '#0099cc',
+          glowGradient: 'radial-gradient(circle, rgba(0, 153, 204, 0.2) 0%, transparent 70%)'
         },
         {
           title: 'Bo\'lib to\'lash imkoniyati',
-          description: '14 yoshdan oshgan yoshlarimiz o\'qish xarajatlarini Bilg\'ur platformasi orqali, kurs yakunlangandan 2 oydan so\'ng bo\'lib to\'lash imkoniyati.',
-          icon: 'PaymentIcon',
-          iconBg: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-          hoverColor: '#a8edea',
-          glowGradient: 'radial-gradient(circle, rgba(168, 237, 234, 0.2) 0%, transparent 70%)'
+          description: '14 yoshdan oshgan yoshlarimiz o\'qish xarajatlarini Bilg\'ur platformasi orqali, kurs yakunlangandan 2 oydan so\'ng bo\'lib to\'lash imkoniyatiga ega.',
+          icon: faMoneyBillWave,
+          iconBg: 'linear-gradient(135deg, #00d4ff 0%, #5e72eb 100%)',
+          hoverColor: '#5e72eb',
+          glowGradient: 'radial-gradient(circle, rgba(94, 114, 235, 0.2) 0%, transparent 70%)'
         },
         {
           title: 'Doimiy musobaqalar',
-          description: 'Dasturlash, dizayn va marketing sohalari bo\'yicha tajriba olmashlari va musobaqalar tashkil qilinadi.',
-          icon: 'CompetitionIcon',
+          description: 'Dasturlash, dizayn va marketing sohalari bo\'yicha tajriba orttirishlari uchun doimiy musobaqalar tashkil etiladi.',
+          icon: faTrophy,
           iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
           hoverColor: '#00f2fe',
           glowGradient: 'radial-gradient(circle, rgba(0, 242, 254, 0.2) 0%, transparent 70%)'
         },
         {
           title: 'To\'lim xarajatlarini qaytarib olish',
-          description: '14 yoshidan 30 yoshigacha bo\'lgan yoshlar, o\'qish xarajatlarini 30% dan 100% gacha qaytarib olish imkoniyati mavjud.',
-          icon: 'RefundIcon',
-          iconBg: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 100%)',
-          hoverColor: '#00d4ff',
-          glowGradient: 'radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%)'
+          description: '14 yoshidan 30 yoshgacha bo\'lgan yoshlar o\'qish xarajatlarini 30% dan 100% gacha qaytarib olish imkoniyatiga ega.',
+          icon: faHandHoldingUsd,
+          iconBg: 'linear-gradient(135deg, #00d4ff 0%, #00aacc 100%)',
+          hoverColor: '#00aacc',
+          glowGradient: 'radial-gradient(circle, rgba(0, 170, 204, 0.2) 0%, transparent 70%)'
         },
         {
           title: 'Sertifikat',
-          description: 'Kursni muvaffaqiyatli tamomlagan o\'quvchilar "DevOps IT Center"ning Respami texnologiyalar vazirligii tosdiqilagan sertifikatiga ega bo\'ladi.',
-          icon: 'CertificateIcon',
-          iconBg: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-          hoverColor: '#fcb69f',
-          glowGradient: 'radial-gradient(circle, rgba(252, 182, 159, 0.2) 0%, transparent 70%)'
+          description: 'Kursni muvaffaqiyatli tamomlagan o\'quvchilar "DevOps IT Center"ning Respublika texnologiyalar vazirligi tomonidan tasdiqlangan sertifikatiga ega bo\'lishadi.',
+          icon: faCertificate,
+          iconBg: 'linear-gradient(135deg, #00d4ff 0%, #0066cc 100%)',
+          hoverColor: '#0066cc',
+          glowGradient: 'radial-gradient(circle, rgba(0, 102, 204, 0.2) 0%, transparent 70%)'
         }
       ]
     }
@@ -164,61 +177,6 @@ export default {
     playHoverSound() {
       // Optional: Add subtle hover feedback
       // Could implement Web Audio API for sound effects
-    }
-  },
-  components: {
-    CoworkingIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-      `
-    },
-    QualityIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-        </svg>
-      `
-    },
-    PaymentIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-          <line x1="1" y1="10" x2="23" y2="10"></line>
-        </svg>
-      `
-    },
-    CompetitionIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-          <path d="M4 22h16"></path>
-          <path d="M10 14.66V17c0 .55.47.98.97 1.21C12.04 18.74 13 20.44 13 22"></path>
-          <path d="M14 14.66V17c0 .55-.47.98-.97 1.21C11.96 18.74 11 20.44 11 22"></path>
-          <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
-        </svg>
-      `
-    },
-    RefundIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="8"></circle>
-          <path d="M12 2v20"></path>
-          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      `
-    },
-    CertificateIcon: {
-      template: `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="8" r="7"></circle>
-          <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"></polyline>
-        </svg>
-      `
     }
   }
 }

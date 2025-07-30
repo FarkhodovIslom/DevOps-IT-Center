@@ -4,7 +4,7 @@
       <!-- Logo -->
       <div class="logo-section">
         <a href="#" class="logo">
-          <img src="../../public/assets/logos/logo-textright__green-white.png" width="110" alt="DevOps">
+          <img src="../../public/assets/logos/logo-textright__green-white.png" width="120" alt="DevOps">
         </a>
       </div>
 
@@ -352,14 +352,10 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  transform: translateY(-5px);
+  filter: saturate(150%) brightness(140%);
 }
 
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  color: #00d4ff;
-  animation: logoFloat 3s ease-in-out infinite;
-}
 
 .logo-text {
   font-size: 1.5rem;

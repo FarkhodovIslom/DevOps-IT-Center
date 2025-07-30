@@ -6,15 +6,11 @@
         <div class="slider-wrapper">
           <!-- Navigation Arrows -->
           <button class="nav-arrow nav-arrow-left" @click="prevSlide" :disabled="currentSlide === 0">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="15,18 9,12 15,6"></polyline>
-            </svg>
+            <i class="fas fa-chevron-left"></i>
           </button>
           
           <button class="nav-arrow nav-arrow-right" @click="nextSlide" :disabled="currentSlide === slides.length - 1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="9,18 15,12 9,6"></polyline>
-            </svg>
+            <i class="fas fa-chevron-right"></i>
           </button>
 
           <!-- Slider Content -->
@@ -33,7 +29,7 @@
                     :style="{ animationDelay: `${index * 0.2}s` }"
                   >
                     <div class="icon-wrapper">
-                      <span>{{ icon.emoji }}</span>
+                      <i :class="icon.iconClass"></i>
                     </div>
                     <span class="icon-label">{{ icon.label }}</span>
                   </div>
@@ -60,12 +56,7 @@
         <div class="form-card">
           <div class="form-header">
             <div class="form-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+              <i class="fas fa-users"></i>
             </div>
             <h3 class="form-title">Bepul konsultatsiya</h3>
             <p class="form-subtitle">Telefon raqamingizni yozing, sizga biz tez orada bog'lanib savollatingizga javob beramiz</p>
@@ -126,7 +117,9 @@
           <!-- Success Message -->
           <transition name="success">
             <div v-if="showSuccess" class="success-message">
-              <div class="success-icon">✓</div>
+              <div class="success-icon">
+                <i class="fas fa-check"></i>
+              </div>
               <div>
                 <h4>Muvaffaqiyatli yuborildi!</h4>
                 <p>Tez orada siz bilan bog'lanamiz</p>
@@ -163,32 +156,32 @@ export default {
       slides: [
         {
           title: "Kelajak kasblarini biz bilan o'rganing!",
-          description: "Hozirgi kunda ishlatgan juda ajoyib riyotlarishli uchun diskuzyer va markrolog muhin rivotaslandiran biri hisoblandi. Shunling uchun ham ushbu sohalarida talab dormy tarzada osib boromoqda.",
+          description: "Hozirgi kunda istalgan biznes va startupning rivojlanishi uchun dasturchi, dizayner va marketolog muhim mutaxasislardan biri xisoblanadi.",
           icons: [
-            { emoji: '💻', label: 'Programming' },
-            { emoji: '🎨', label: 'Design' },
-            { emoji: '📊', label: 'Analytics' },
-            { emoji: '🚀', label: 'Innovation' }
+            { iconClass: 'fas fa-laptop-code', label: '' },
+            { iconClass: 'fas fa-palette', label: '' },
+            { iconClass: 'fas fa-chart-bar', label: '' },
+            { iconClass: 'fas fa-rocket', label: '' }
           ]
         },
         {
-          title: "Professional darajada o'qiting!",
-          description: "Tajribali mentorlar bilan ishlang va real loyihalarda qatnashing. Nazariyadan amaliyotga o'tish uchun eng yaxshi yo'l.",
+          title: "Professional darajada o'rganing!",
+          description: "Tajribali mentorlar bilan ishlang va real loyihalarda qatnashing. Nazariyadan amaliyotga o'tish uchun real loyihalar eng yaxshi yo'l.",
           icons: [
-            { emoji: '👨‍🏫', label: 'Mentorship' },
-            { emoji: '🏆', label: 'Certificates' },
-            { emoji: '💼', label: 'Career' },
-            { emoji: '🤝', label: 'Networking' }
+            { iconClass: 'fas fa-chalkboard-teacher', label: '' },
+            { iconClass: 'fas fa-trophy', label: '' },
+            { iconClass: 'fas fa-briefcase', label: '' },
+            { iconClass: 'fas fa-handshake', label: '' }
           ]
         },
         {
           title: "Karyerangizni yangi bosqichga olib chiqing!",
-          description: "IT sohasida yuqori maoshli ish joylarini topish va professional rivojlanish uchun zarur ko'nikmalarni egallang.",
+          description: "IT sohasida yuqori maoshli ish joylarini topish va professional rivojlanish uchun zarur bo'lgan ko'nikmalarni egallang.",
           icons: [
-            { emoji: '📈', label: 'Growth' },
-            { emoji: '💰', label: 'High Salary' },
-            { emoji: '🌟', label: 'Success' },
-            { emoji: '🔮', label: 'Future' }
+            { iconClass: 'fas fa-chart-line', label: '' },
+            { iconClass: 'fas fa-dollar-sign', label: '' },
+            { iconClass: 'fas fa-star', label: '' },
+            { iconClass: 'fas fa-magic', label: '' }
           ]
         }
       ]
@@ -295,6 +288,9 @@ export default {
 </script>
 
 <style scoped>
+/* Import FontAwesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
 .hero-section {
   min-height: 80vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -330,6 +326,7 @@ export default {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
+/* Fixed Navigation Arrows */
 .nav-arrow {
   position: absolute;
   top: 50%;
@@ -337,23 +334,33 @@ export default {
   width: 50px;
   height: 50px;
   background: rgba(255, 255, 255, 0.2);
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 2;
+  z-index: 10;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  opacity: 1;
+  visibility: visible;
 }
 
 .nav-arrow:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
 }
 
 .nav-arrow:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-arrow-left {
@@ -362,11 +369,6 @@ export default {
 
 .nav-arrow-right {
   right: -25px;
-}
-
-.nav-arrow svg {
-  width: 24px;
-  height: 24px;
 }
 
 .slider-content {
@@ -507,11 +509,7 @@ export default {
   justify-content: center;
   margin: 0 auto 1rem;
   color: white;
-}
-
-.form-icon svg {
-  width: 24px;
-  height: 24px;
+  font-size: 1.5rem;
 }
 
 .form-title {
@@ -678,7 +676,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: bold;
 }
 
@@ -786,6 +784,15 @@ export default {
   .slide-icons {
     gap: 1rem;
   }
+  
+  /* Adjust arrow position for tablet */
+  .nav-arrow-left {
+    left: -25px;
+  }
+  
+  .nav-arrow-right {
+    right: -25px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -814,11 +821,16 @@ export default {
   .nav-arrow {
     width: 40px;
     height: 40px;
+    font-size: 14px;
   }
   
-  .nav-arrow svg {
-    width: 20px;
-    height: 20px;
+  /* Move arrows closer on mobile */
+  .nav-arrow-left {
+    left: -20px;
+  }
+  
+  .nav-arrow-right {
+    right: -20px;
   }
 }
 
@@ -834,6 +846,21 @@ export default {
   
   .slide-title {
     font-size: 1.5rem;
+  }
+  
+  /* On very small screens, put arrows inside */
+  .nav-arrow-left {
+    left: 10px;
+  }
+  
+  .nav-arrow-right {
+    right: 10px;
+  }
+  
+  .nav-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 12px;
   }
 }
 </style>
