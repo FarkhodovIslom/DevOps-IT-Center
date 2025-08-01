@@ -218,10 +218,12 @@
 
       <!-- Right Section -->
       <div class="nav-actions">
-        <button class="cert-btn">
-          <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
-          Sertifikatlar
-        </button>
+        <a href="../../pages/certificates.html">
+          <button class="cert-btn">
+            <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
+            Sertifikatlar
+          </button>
+        </a>
         
         <a href="tel:+998957781190" class="phone-btn">
           <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">

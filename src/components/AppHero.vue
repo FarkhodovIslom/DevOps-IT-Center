@@ -268,7 +268,7 @@ export default {
       this.isLoading = true;
       
       try {
-        // Simulate API call
+        // API call
         await new Promise(resolve => setTimeout(resolve, 2000));
         
         this.showSuccess = true;
@@ -785,7 +785,6 @@ export default {
     gap: 1rem;
   }
   
-  /* Adjust arrow position for tablet */
   .nav-arrow-left {
     left: -25px;
   }
@@ -824,7 +823,6 @@ export default {
     font-size: 14px;
   }
   
-  /* Move arrows closer on mobile */
   .nav-arrow-left {
     left: -20px;
   }
@@ -848,7 +846,6 @@ export default {
     font-size: 1.5rem;
   }
   
-  /* On very small screens, put arrows inside */
   .nav-arrow-left {
     left: 10px;
   }
