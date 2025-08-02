@@ -171,8 +171,8 @@ export default {
   max-width: 100%;
   margin: 1rem 0 0 0 ;
   padding: 4rem 2.5rem 2rem 2.5rem;
-  min-height: 100vh;
-  background-color: #0000001f;
+  min-height: 80vh;
+  background-color: #fffffff5;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -184,11 +184,14 @@ export default {
 }
 
 .header h2 {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #f7fafa;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a202c;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 20px rgba(48, 69, 74, 0.3);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Teachers Grid */

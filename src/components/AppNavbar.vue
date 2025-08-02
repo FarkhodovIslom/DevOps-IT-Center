@@ -3,9 +3,9 @@
     <div class="nav-container">
       <!-- Logo -->
       <div class="logo-section">
-        <a href="#" class="logo">
-          <img src="../../public/assets/logos/logo-textright__green-white.png" width="110" alt="DevOps">
-        </a>
+        <router-link to="/" class="logo">
+          <img src="/assets/logos/logo-textright__green-white.png" width="110" alt="DevOps">
+        </router-link>
       </div>
 
       <!-- Navigation Menu -->
@@ -218,12 +218,12 @@
 
       <!-- Right Section -->
       <div class="nav-actions">
-        <a href="pages/certificates.html">
+        <router-link to="/certificates">
           <button class="cert-btn">
             <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
             Sertifikatlar
           </button>
-        </a>
+        </router-link>
         
         <a href="tel:+998957781190" class="phone-btn">
           <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -289,7 +289,9 @@
         </div>
 
         <div class="mobile-actions">
-          <button class="mobile-cert-btn">Sertifikatlar</button>
+          <router-link to="/certificates">
+            <button class="mobile-cert-btn">Sertifikatlar</button>
+          </router-link>
           <a href="tel:+998957781190" class="mobile-phone-btn">+998 95 778 11 90</a>
         </div>
       </div>
