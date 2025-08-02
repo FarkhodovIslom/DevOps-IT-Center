@@ -17,6 +17,13 @@
 </head> 
 <body>
 <div id="app">
+    <!-- Loader -->
+     <div id="loader-container" class="loader-container" :class="{ 'fade-out': isHiding }">
+        <div class="loader">
+        <span class="loader-text">loading</span>
+        <span class="load"></span>
+        </div>
+    </div>
     <!-- Navbar Component -->
     <app-navbar></app-navbar>
 
@@ -656,6 +663,19 @@
             lucide.createIcons();
         }
     }).mount('#app');
+</script>
+<!-- Loader -->
+<script>
+ window.onload = () => {
+     setTimeout(() => {
+         const loaderContainer = document.getElementById('loader-container');
+         loaderContainer.classList.add('fade-out');
+         
+         setTimeout(() => {
+             loaderContainer.remove();
+         }, 800); // 800ms = время transition
+     }, 1200);
+ };
 </script>
 </body>
 </html>
