@@ -218,7 +218,7 @@
 
       <!-- Right Section -->
       <div class="nav-actions">
-        <a href="../../pages/certificates.html">
+        <a href="pages/certificates.html">
           <button class="cert-btn">
             <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
             Sertifikatlar
