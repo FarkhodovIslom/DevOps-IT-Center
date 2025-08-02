@@ -1,4 +1,4 @@
-``<template>
+<template>
   <footer class="footer">
     <div class="footer-container">
       <!-- Main Footer Content -->

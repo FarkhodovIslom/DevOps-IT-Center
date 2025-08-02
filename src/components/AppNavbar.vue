@@ -4,7 +4,7 @@
       <!-- Logo -->
       <div class="logo-section">
         <a href="#" class="logo">
-          <img src="../../public/assets/logos/logo-textright__green-white.png" width="120" alt="DevOps">
+          <img src="../../public/assets/logos/logo-textright__green-white.png" width="110" alt="DevOps">
         </a>
       </div>
 

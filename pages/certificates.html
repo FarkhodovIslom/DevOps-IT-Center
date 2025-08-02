@@ -12,52 +12,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <!-- Custom css link -->
     <link rel="stylesheet" href="../src/components/styles/style.css">
-</head>
+    <!-- New certificates specific styles -->
+    <link rel="stylesheet" href="../src/components/styles/certificates.css">
+</head> 
 <body>
 <div id="app">
     <!-- Navbar Component -->
     <app-navbar></app-navbar>
 
-    <div class="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 relative overflow-hidden">
+    <div class="certificates-container">
         <!-- Background Effects -->
-        <div class="absolute inset-0">
-            <div class="absolute top-20 left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-            <div class="absolute bottom-20 right-20 w-80 h-80 bg-cyan-300/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-400/10 rounded-full blur-3xl animate-spin" style="animation-duration: 20s;"></div>
+        <div class="bg-effects">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+            <div class="bg-circle bg-circle-3"></div>
         </div>
 
-        <div class="relative z-10 container mx-auto px-6 py-12 pt-24">
+        <div class="content-wrapper">
             <!-- Main Title -->
-            <div class="text-center mb-16 animate-slide-up">
-                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 animate-float">
+            <div class="main-title">
+                <h1 class="title-primary">
                     BITIRUV SERTIFIKATINGIZNI
                 </h1>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" style="animation-delay: 0.2s;">
+                <h2 class="title-secondary">
                     TEKSHIRISH VA YUKLAB OLISH UCHUN
                 </h2>
             </div>
 
             <!-- Quick Search -->
-            <div class="max-w-4xl mx-auto mb-12 animate-slide-up" style="animation-delay: 0.4s;">
-                <div class="bg-white/10 glass rounded-3xl p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500">
-                    <form @submit.prevent="quickSearch" class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-1 relative">
-                            <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-5 h-5"></i>
+            <div class="quick-search-section">
+                <div class="search-card">
+                    <form @submit.prevent="quickSearch" class="search-form">
+                        <div class="search-input-wrapper">
                             <input
-                                    v-model="searchQuery"
-                                    type="text"
-                                    placeholder="Familiyangiz yoki ismingizni yozing"
-                                    class="w-full bg-white/10 glass border border-white/30 rounded-xl pl-12 pr-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300 hover:bg-white/20"
+                                id="search"
+                                v-model="searchQuery"
+                                type="text"
+                                placeholder="Familiyangiz yoki ismingizni yozing"
+                                class="search-input"
                             />
                         </div>
                         <button
-                                type="submit"
-                                :disabled="loading"
-                                class="bg-cyan-400 hover:bg-cyan-500 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 disabled:opacity-50 animate-glow"
+                            type="submit"
+                            :disabled="loading"
+                            class="search-btn"
                         >
-                            <div v-if="loading" class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            <div v-if="loading" class="loading-spinner"></div>
                             <template v-else>
-                                <i data-lucide="search" class="w-5 h-5"></i>
+                                <i data-lucide="search" class="btn-icon"></i>
                                 <span>Sertifikatni qidirish</span>
                             </template>
                         </button>
@@ -66,125 +68,121 @@
             </div>
 
             <!-- Main Content -->
-            <div class="max-w-7xl mx-auto">
-                <div class="grid lg:grid-cols-2 gap-12">
+            <div class="main-content">
+                <div class="content-grid">
                     <!-- Search Form -->
-                    <div class="bg-white/10 glass rounded-3xl p-8 border border-white/20 shadow-2xl animate-slide-left cert-card transition-all duration-500">
-                        <h3 class="text-3xl font-bold text-white mb-8 flex items-center space-x-3">
-                            <i data-lucide="user" class="w-8 h-8 text-cyan-400"></i>
-                            <span>Bitiruvchi ma'lumotlari</span>
-                        </h3>
+                    <div class="form-section">
+                        <div class="form-card">
+                            <h3 class="form-title">
+                                <i data-lucide="user" class="form-icon"></i>
+                                <span>Bitiruvchi ma'lumotlari</span>
+                            </h3>
 
-                        <form @submit.prevent="searchCertificates" class="space-y-6">
-                            <div class="space-y-2">
-                                <label class="block text-white/90 font-medium">Familyasi:</label>
-                                <input
+                            <form @submit.prevent="searchCertificates" class="certificate-form">
+                                <div class="form-group">
+                                    <label class="form-label">Familyasi:</label>
+                                    <input
                                         v-model="formData.familiya"
                                         type="text"
-                                        placeholder="Asliddinov"
-                                        class="w-full bg-white/10 glass border border-white/30 rounded-xl px-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300 hover:bg-white/20"
-                                />
-                            </div>
+                                        placeholder="Ravshanov"
+                                        class="form-input"
+                                        disabled
+                                    />
+                                </div>
 
-                            <div class="space-y-2">
-                                <label class="block text-white/90 font-medium">Ismi:</label>
-                                <input
+                                <div class="form-group">
+                                    <label class="form-label">Ismi:</label>
+                                    <input
                                         v-model="formData.ism"
                                         type="text"
-                                        placeholder="Muhammadali"
-                                        class="w-full bg-white/10 glass border border-white/30 rounded-xl px-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300 hover:bg-white/20"
-                                />
-                            </div>
+                                        placeholder="Islombek"
+                                        class="form-input"
+                                        disabled
+                                    />
+                                </div>
 
-                            <div class="space-y-2">
-                                <label class="block text-white/90 font-medium">ID raqami:</label>
-                                <div class="relative">
-                                    <i data-lucide="hash" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-5 h-5"></i>
-                                    <input
+                                <div class="form-group">
+                                    <label class="form-label">ID raqami:</label>
+                                    <div class="input-with-icon">
+                                        <i data-lucide="hash" class="input-icon"></i>
+                                        <input
                                             v-model="formData.idRaqami"
                                             type="text"
                                             placeholder="DIC000001"
-                                            class="w-full bg-white/10 glass border border-white/30 rounded-xl pl-12 pr-4 py-4 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all duration-300 hover:bg-white/20"
-                                    />
+                                            class="form-input with-icon"
+                                            disabled
+                                        />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="bg-cyan-400/10 border border-cyan-400/30 rounded-xl p-4">
-                                <p class="text-cyan-200 text-sm flex items-center space-x-2">
-                                    <i data-lucide="info" class="w-4 h-4"></i>
-                                    <span>Sertifikatni PDF formatda yuklab olishingiz mumkin</span>
-                                </p>
-                            </div>
+                                <div class="info-box">
+                                    <p class="info-text">
+                                        <i data-lucide="info" class="info-icon"></i>
+                                        <span>Sertifikatni PDF formatda yuklab olishingiz mumkin</span>
+                                    </p>
+                                </div>
 
-                            <button
+                                <button
                                     type="submit"
                                     :disabled="loading"
-                                    class="w-full bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg animate-glow flex items-center justify-center space-x-2"
-                            >
-                                <i data-lucide="download" class="w-5 h-5"></i>
-                                <span>{{ loading ? 'Qidirilmoqda...' : 'Yuklab olish' }}</span>
-                            </button>
-                        </form>
+                                    class="submit-btn"
+                                >
+                                    <i data-lucide="download" class="btn-icon"></i>
+                                    <span>{{ loading ? 'Qidirilmoqda...' : 'Yuklab olish' }}</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
-                    <!-- Certificate Preview -->
-                    <div class="bg-white/95 glass rounded-3xl p-8 shadow-2xl animate-slide-right cert-card transition-all duration-500">
-                        <div class="relative h-full">
-                            <!-- Certificate Header -->
-                            <div class="flex justify-between items-start mb-8">
-                                <div class="flex space-x-3">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                                        <i data-lucide="award" class="w-7 h-7 text-white"></i>
-                                    </div>
-                                    <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center shadow-lg">
-                                        <span class="text-white font-bold">IT</span>
-                                    </div>
-                                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-xl flex items-center justify-center shadow-lg">
-                                        <span class="text-white font-bold">DJ</span>
+                    <!-- PDF Viewer -->
+                    <div class="pdf-section">
+                        <div class="pdf-card">
+                            <div v-if="selectedCertificate" class="pdf-viewer">
+                                <div class="pdf-header">
+                                    <h3 class="pdf-title">{{ selectedCertificate.fullName }} - Sertifikat</h3>
+                                    <div class="pdf-actions">
+                                        <button @click="downloadCertificate(selectedCertificate)" class="pdf-download-btn">
+                                            <i data-lucide="download" class="btn-icon"></i>
+                                            PDF yuklab olish
+                                        </button>
+                                        <button @click="viewFullscreen(selectedCertificate)" class="pdf-view-btn">
+                                            <i data-lucide="maximize" class="btn-icon"></i>
+                                            To'liq ko'rish
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="w-20 h-20 bg-gradient-to-br from-cyan-400 via-purple-500 to-purple-700 rounded-2xl animate-float shadow-xl"></div>
-                            </div>
-
-                            <h2 class="text-5xl font-bold text-gray-800 mb-8 text-center">
-                                CERTIFICATE
-                            </h2>
-
-                            <div v-if="selectedCertificate" class="space-y-6">
-                                <div class="text-center">
-                                    <h3 class="text-3xl font-bold text-gray-900 mb-2">{{ selectedCertificate.fullName }}</h3>
-                                    <p class="text-gray-600 text-lg">
-                                        In {{ selectedCertificate.year }}, from {{ selectedCertificate.startDate }} to {{ selectedCertificate.endDate }}
-                                    </p>
-                                    <p class="text-xl font-semibold text-blue-600 mt-2">
-                                        {{ selectedCertificate.hours }} hours of "{{ selectedCertificate.course }}"
-                                    </p>
-                                    <p class="text-gray-600">course successfully completed</p>
-                                </div>
-
-                                <div class="flex justify-between items-end mt-8">
-                                    <div class="text-center">
-                                        <div class="text-2xl font-bold text-gray-800">{{ selectedCertificate.issueDate }}</div>
-                                        <div class="text-gray-600">Date</div>
+                                
+                                <div class="pdf-placeholder">
+                                    <div class="pdf-icon-wrapper">
+                                        <i data-lucide="file-text" class="pdf-icon"></i>
                                     </div>
-
-                                    <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center">
-                                        <i data-lucide="award" class="w-10 h-10 text-white"></i>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <div class="text-lg font-bold text-gray-800">{{ selectedCertificate.director }}</div>
-                                        <div class="text-gray-600 text-sm">Director of DevOps IT Center</div>
-                                        <div class="text-2xl font-bold text-blue-600 mt-1">{{ selectedCertificate.id }}</div>
-                                        <div class="text-gray-600 text-sm">ID</div>
+                                    <h4 class="pdf-placeholder-title">{{ selectedCertificate.fullName }}</h4>
+                                    <p class="pdf-placeholder-subtitle">{{ selectedCertificate.course }}</p>
+                                    <div class="pdf-details">
+                                        <div class="pdf-detail">
+                                            <span class="detail-label">ID:</span>
+                                            <span class="detail-value">{{ selectedCertificate.id }}</span>
+                                        </div>
+                                        <div class="pdf-detail">
+                                            <span class="detail-label">Soat:</span>
+                                            <span class="detail-value">{{ selectedCertificate.hours }} soat</span>
+                                        </div>
+                                        <div class="pdf-detail">
+                                            <span class="detail-label">Yil:</span>
+                                            <span class="detail-value">{{ selectedCertificate.year }}</span>
+                                        </div>
+                                        <div class="pdf-detail">
+                                            <span class="detail-label">Berilgan:</span>
+                                            <span class="detail-value">{{ selectedCertificate.issueDate }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div v-else class="text-center py-16">
-                                <i data-lucide="file-text" class="w-24 h-24 text-gray-400 mx-auto mb-4"></i>
-                                <p class="text-gray-500 text-xl">Ma'lumotlarni kiriting</p>
-                                <p class="text-gray-400">Sertifikat ko'rinishi shu yerda chiqadi</p>
+                            <div v-else class="pdf-empty">
+                                <i data-lucide="file-search" class="empty-icon"></i>
+                                <p class="empty-title">Ma'lumotlarni kiriting</p>
+                                <p class="empty-subtitle">Sertifikat PDF fayli shu yerda ko'rinadi</p>
                             </div>
                         </div>
                     </div>
@@ -192,32 +190,33 @@
             </div>
 
             <!-- Results Section -->
-            <div v-if="certificates.length > 0" class="max-w-7xl mx-auto mt-16 animate-slide-up">
-                <h3 class="text-3xl font-bold text-white mb-8 text-center">Topilgan sertifikatlar</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-if="certificates.length > 0" class="results-section">
+                <h3 class="results-title">Topilgan sertifikatlar</h3>
+                <div class="results-grid">
                     <div
-                            v-for="cert in certificates"
-                            :key="cert.id"
-                            @click="selectCertificate(cert)"
-                            class="bg-white/10 glass rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 cert-card"
+                        v-for="cert in certificates"
+                        :key="cert.id"
+                        @click="selectCertificate(cert)"
+                        class="result-card"
+                        :class="{ 'active': selectedCertificate && selectedCertificate.id === cert.id }"
                     >
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center space-x-3">
-                                <i data-lucide="award" class="w-8 h-8 text-cyan-400"></i>
-                                <span class="text-white font-bold">{{ cert.id }}</span>
+                        <div class="result-header">
+                            <div class="result-id">
+                                <i data-lucide="award" class="result-icon"></i>
+                                <span class="id-text">{{ cert.id }}</span>
                             </div>
-                            <button @click.stop="downloadCertificate(cert)" class="text-cyan-400 hover:text-cyan-300 transition-colors">
-                                <i data-lucide="download" class="w-5 h-5"></i>
+                            <button @click.stop="downloadCertificate(cert)" class="result-download">
+                                <i data-lucide="download" class="download-icon"></i>
                             </button>
                         </div>
 
-                        <h4 class="text-xl font-bold text-white mb-2">{{ cert.fullName }}</h4>
-                        <p class="text-white/80 mb-2">{{ cert.course }}</p>
-                        <p class="text-white/60 text-sm">{{ cert.hours }} soat • {{ cert.year }}</p>
+                        <h4 class="result-name">{{ cert.fullName }}</h4>
+                        <p class="result-course">{{ cert.course }}</p>
+                        <p class="result-meta">{{ cert.hours }} soat • {{ cert.year }}</p>
 
-                        <div class="mt-4 pt-4 border-t border-white/20">
-                            <p class="text-white/80 text-sm flex items-center space-x-2">
-                                <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <div class="result-footer">
+                            <p class="result-date">
+                                <i data-lucide="calendar" class="date-icon"></i>
                                 <span>Berilgan: {{ cert.issueDate }}</span>
                             </p>
                         </div>
@@ -502,7 +501,7 @@
                                         <a href="#" class="mobile-sublink">Websayt tayyorlash</a>
                                         <a href="#" class="mobile-sublink">SMM xizmatlar</a>
                                         <a href="#" class="mobile-sublink">Online xizmatlar</a>
-                                        <a href="#" class="mobile-sublink">Kompyuterni tamirlash</a>
+                                        <a href="#" class="mobile-sublink">Компyuterni tamirlash</a>
                                         <a href="#" class="mobile-sublink">Telegram Bot</a>
                                         <a href="#" class="mobile-sublink">Kompytuer sotuvi</a>
                                     </div>
@@ -546,6 +545,7 @@
     }
 
     // Main Vue app
+   
     createApp({
         components: {
             'app-navbar': AppNavbar
@@ -603,6 +603,17 @@
                             hours: '120',
                             issueDate: '15.06.2024',
                             director: 'Urol Khabibov'
+                        },
+                        {
+                            id: 'DIC000003',
+                            fullName: 'RAVSHANOV ISLOMBEK',
+                            course: 'Full Stack Development',
+                            startDate: '1 st March',
+                            endDate: '4 st July',
+                            year: '2023',
+                            hours: '140',
+                            issueDate: '04.07.2023',
+                            director: 'Urol Khabibov'
                         }
                     ];
 
@@ -629,12 +640,15 @@
 
             async downloadCertificate(cert) {
                 try {
-                    // Для демки просто показываем сообщение
-                    alert(`Скачивается сертификат: ${cert.id} - ${cert.fullName}`);
+                    alert(`PDF yuklab olinmoqda: ${cert.id} - ${cert.fullName}`);
                 } catch (error) {
                     console.error('Error downloading certificate:', error);
-                    alert('Ошибка при скачивании сертификата');
+                    alert('PDF yuklab olishda xatolik yuz berdi');
                 }
+            },
+
+            viewFullscreen(cert) {
+                alert(`To'liq ko'rish: ${cert.fullName} - ${cert.id}`);
             }
         },
         mounted() {
