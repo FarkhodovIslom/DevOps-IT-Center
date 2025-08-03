@@ -7,6 +7,7 @@
     <TeachersSection />
     <AppLocation />
     <ContactSection />
+    <AppFAQ />
   </main>
 </template>
 
@@ -18,6 +19,7 @@ import AppCourses from '../components/AppCourses.vue'
 import AppLocation from '../components/AppLocation.vue'
 import TeachersSection from '../components/TeachersSection.vue'
 import ContactSection from '../components/ContactSection.vue'
+import AppFAQ from '../components/AppFAQ.vue'
 
 export default {
   name: 'Home',
@@ -28,7 +30,8 @@ export default {
     AppCourses,
     AppLocation,
     TeachersSection,
-    ContactSection
+    ContactSection,
+    AppFAQ
   }
 }
 </script>

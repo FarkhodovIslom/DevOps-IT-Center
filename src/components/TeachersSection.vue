@@ -172,7 +172,7 @@ export default {
   margin: 1rem 0 0 0 ;
   padding: 4rem 2.5rem 2rem 2.5rem;
   min-height: 80vh;
-  background-color: #fffffff5;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
