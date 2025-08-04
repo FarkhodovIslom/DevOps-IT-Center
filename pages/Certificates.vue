@@ -47,6 +47,15 @@
         </div>
       </div>
 
+      <!-- Error State -->
+      <div v-if="error" class="error-container">
+        <div class="error-message">
+          <h3>Xatolik yuz berdi</h3>
+          <p>{{ error }}</p>
+          <button @click="retryFetch" class="retry-button">Qayta urinish</button>
+        </div>
+      </div>
+
       <!-- Main Content -->
       <div class="main-content">
         <div class="content-grid">
@@ -66,7 +75,7 @@
                     type="text"
                     placeholder="Ravshanov"
                     class="form-input"
-                    :disabled="!formEnabled"
+                    :disabled="loading"
                   />
                 </div>
 
@@ -77,7 +86,7 @@
                     type="text"
                     placeholder="Islombek"
                     class="form-input"
-                    :disabled="!formEnabled"
+                    :disabled="loading"
                   />
                 </div>
 
@@ -90,7 +99,7 @@
                       type="text"
                       placeholder="DIC000001"
                       class="form-input with-icon"
-                      :disabled="!formEnabled"
+                      :disabled="loading"
                     />
                   </div>
                 </div>
@@ -104,7 +113,7 @@
 
                 <button
                   type="submit"
-                  :disabled="loading || !formEnabled"
+                  :disabled="loading"
                   class="submit-btn"
                 >
                   <DownloadIcon class="btn-icon" />
@@ -119,7 +128,7 @@
             <div class="pdf-card">
               <div v-if="selectedCertificate" class="pdf-viewer">
                 <div class="pdf-header">
-                  <h3 class="pdf-title">{{ selectedCertificate.fullName }} - Sertifikat</h3>
+                  <h3 class="pdf-title">{{ selectedCertificate.fullName || selectedCertificate.name || 'Noma\'lum' }} - Sertifikat</h3>
                   <div class="pdf-actions">
                     <button @click="downloadCertificate(selectedCertificate)" class="pdf-download-btn">
                       <DownloadIcon class="btn-icon" />
@@ -136,24 +145,24 @@
                   <div class="pdf-icon-wrapper">
                     <FileTextIcon class="pdf-icon" />
                   </div>
-                  <h4 class="pdf-placeholder-title">{{ selectedCertificate.fullName }}</h4>
-                  <p class="pdf-placeholder-subtitle">{{ selectedCertificate.course }}</p>
+                  <h4 class="pdf-placeholder-title">{{ selectedCertificate.fullName || selectedCertificate.name || 'Noma\'lum' }}</h4>
+                  <p class="pdf-placeholder-subtitle">{{ selectedCertificate.course || selectedCertificate.courseName || 'Kurs nomi noma\'lum' }}</p>
                   <div class="pdf-details">
                     <div class="pdf-detail">
                       <span class="detail-label">ID:</span>
-                      <span class="detail-value">{{ selectedCertificate.id }}</span>
+                      <span class="detail-value">{{ selectedCertificate.id || selectedCertificate.uuid || 'N/A' }}</span>
                     </div>
-                    <div class="pdf-detail">
+                    <div class="pdf-detail" v-if="selectedCertificate.hours">
                       <span class="detail-label">Soat:</span>
                       <span class="detail-value">{{ selectedCertificate.hours }} soat</span>
                     </div>
-                    <div class="pdf-detail">
+                    <div class="pdf-detail" v-if="selectedCertificate.year">
                       <span class="detail-label">Yil:</span>
                       <span class="detail-value">{{ selectedCertificate.year }}</span>
                     </div>
-                    <div class="pdf-detail">
+                    <div class="pdf-detail" v-if="selectedCertificate.issueDate || selectedCertificate.date">
                       <span class="detail-label">Berilgan:</span>
-                      <span class="detail-value">{{ selectedCertificate.issueDate }}</span>
+                      <span class="detail-value">{{ selectedCertificate.issueDate || selectedCertificate.date }}</span>
                     </div>
                   </div>
                 </div>
@@ -171,44 +180,52 @@
 
       <!-- Results Section -->
       <div v-if="certificates.length > 0" class="results-section">
-        <h3 class="results-title">Topilgan sertifikatlar</h3>
+        <h3 class="results-title">Topilgan sertifikatlar ({{ certificates.length }})</h3>
         <div class="results-grid">
           <div
             v-for="cert in certificates"
-            :key="cert.id"
+            :key="cert.id || cert.uuid"
             @click="selectCertificate(cert)"
             class="result-card"
-            :class="{ 'active': selectedCertificate && selectedCertificate.id === cert.id }"
+            :class="{ 'active': selectedCertificate && (selectedCertificate.id === cert.id || selectedCertificate.uuid === cert.uuid) }"
           >
             <div class="result-header">
               <div class="result-id">
                 <AwardIcon class="result-icon" />
-                <span class="id-text">{{ cert.id }}</span>
+                <span class="id-text">{{ cert.id || cert.uuid || 'N/A' }}</span>
               </div>
               <button @click.stop="downloadCertificate(cert)" class="result-download">
                 <DownloadIcon class="download-icon" />
               </button>
             </div>
 
-            <h4 class="result-name">{{ cert.fullName }}</h4>
-            <p class="result-course">{{ cert.course }}</p>
-            <p class="result-meta">{{ cert.hours }} soat • {{ cert.year }}</p>
+            <h4 class="result-name">{{ cert.fullName || cert.name || 'Noma\'lum' }}</h4>
+            <p class="result-course">{{ cert.course || cert.courseName || 'Kurs nomi noma\'lum' }}</p>
+            <p class="result-meta" v-if="cert.hours || cert.year">
+              {{ cert.hours ? cert.hours + ' soat' : '' }}{{ cert.hours && cert.year ? ' • ' : '' }}{{ cert.year || '' }}
+            </p>
 
-            <div class="result-footer">
+            <div class="result-footer" v-if="cert.issueDate || cert.date">
               <p class="result-date">
                 <CalendarIcon class="date-icon" />
-                <span>Berilgan: {{ cert.issueDate }}</span>
+                <span>Berilgan: {{ cert.issueDate || cert.date }}</span>
               </p>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- No Results -->
+      <div v-else-if="searchAttempted && !loading" class="no-results">
+        <FileSearchIcon class="no-results-icon" />
+        <h3 class="no-results-title">Sertifikat topilmadi</h3>
+        <p class="no-results-subtitle">Boshqa nom yoki ID bilan qidirib ko'ring</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-
 import { ref, onMounted } from 'vue'
 import { 
   Search as SearchIcon,
@@ -228,15 +245,17 @@ const searchQuery = ref('')
 const certificates = ref([])
 const loading = ref(false)
 const selectedCertificate = ref(null)
-const isLoading = ref(true)
-const isHiding = ref(false)
-const formEnabled = ref(true)
+const error = ref(null)
+const searchAttempted = ref(false)
 
 const formData = ref({
   familiya: '',
   ism: '',
   idRaqami: ''
 })
+
+// Base API URL 
+const API_BASE = 'https://devops-itc.alwaysdata.net'
 
 // Methods
 const quickSearch = async () => {
@@ -250,63 +269,90 @@ const searchCertificates = async () => {
   await fetchCertificates(query)
 }
 
+// Попытка получить конкретный сертификат по UUID
+const fetchCertificateByUuid = async (uuid) => {
+  try {
+    const response = await fetch(`${API_BASE}/api/certificate/${uuid}`)
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    }
+  } catch (err) {
+    console.error('Error fetching certificate by UUID:', err)
+  }
+  return null
+}
+
 const fetchCertificates = async (query) => {
   loading.value = true
+  error.value = null
+  searchAttempted.value = true
+  
   try {
-    // Mock data для демки
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    // Сначала пытаемся получить все сертификаты
+    const response = await fetch(`${API_BASE}/api/certificates/`)
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    
+    // Если API вернул пустой ответ или null, используем fallback
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      console.warn('API returned empty data, using fallback')
+      certificates.value = getFallbackCertificates().filter(cert =>
+        matchesCertificate(cert, query)
+      )
+    } else {
+      // Фильтруем результаты по поисковому запросу
+      const allCertificates = Array.isArray(data) ? data : [data]
+      certificates.value = allCertificates.filter(cert => 
+        matchesCertificate(cert, query)
+      )
+    }
 
-    const mockCertificates = [
-      {
-        id: 'DIC000001',
-        fullName: 'AZAMOV ISMOIL',
-        course: 'Computer literacy',
-        startDate: '18 th October',
-        endDate: '18 th December',
-        year: '2023',
-        hours: '48',
-        issueDate: '03.02.2024',
-        director: 'Urol Khabibov'
-      },
-      {
-        id: 'DIC000002',
-        fullName: 'KARIMOV AZIZ',
-        course: 'Full Stack Development',
-        startDate: '1 st March',
-        endDate: '1 st June',
-        year: '2024',
-        hours: '120',
-        issueDate: '15.06.2024',
-        director: 'Urol Khabibov'
-      },
-      {
-        id: 'DIC000003',
-        fullName: 'RAVSHANOV ISLOMBEK',
-        course: 'Full Stack Development',
-        startDate: '1 st March',
-        endDate: '4 st July',
-        year: '2023',
-        hours: '140',
-        issueDate: '04.07.2023',
-        director: 'Urol Khabibov'
+    // Если ничего не найдено, пробуем поискать по UUID
+    if (certificates.value.length === 0 && query.trim().length > 3) {
+      const singleCert = await fetchCertificateByUuid(query.trim())
+      if (singleCert) {
+        certificates.value = [singleCert]
       }
-    ]
-
-    certificates.value = mockCertificates.filter(cert =>
-      cert.fullName.toLowerCase().includes(query.toLowerCase()) ||
-      cert.id.toLowerCase().includes(query.toLowerCase()) ||
-      cert.course.toLowerCase().includes(query.toLowerCase())
-    )
+    }
 
     if (certificates.value.length > 0) {
       selectedCertificate.value = certificates.value[0]
+    } else {
+      selectedCertificate.value = null
     }
 
-  } catch (error) {
-    console.error('Error fetching certificates:', error)
+  } catch (err) {
+    console.error('Error fetching certificates:', err)
+    error.value = `Sertifikatlarni yuklashda xatolik: ${err.message}`
+    
+    // Fallback на случай ошибки API
+    certificates.value = getFallbackCertificates().filter(cert =>
+      matchesCertificate(cert, query)
+    )
+    
+    if (certificates.value.length > 0) {
+      selectedCertificate.value = certificates.value[0]
+    }
   } finally {
     loading.value = false
   }
+}
+
+// Проверяем соответствие сертификата поисковому запросу
+const matchesCertificate = (cert, query) => {
+  const searchTerm = query.toLowerCase()
+  const fullName = (cert.fullName || cert.name || '').toLowerCase()
+  const id = (cert.id || cert.uuid || '').toLowerCase()
+  const course = (cert.course || cert.courseName || '').toLowerCase()
+  
+  return fullName.includes(searchTerm) || 
+         id.includes(searchTerm) || 
+         course.includes(searchTerm)
 }
 
 const selectCertificate = (cert) => {
@@ -315,7 +361,26 @@ const selectCertificate = (cert) => {
 
 const downloadCertificate = async (cert) => {
   try {
-    alert(`PDF yuklab olinmoqda: ${cert.id} - ${cert.fullName}`)
+    const certId = cert.uuid || cert.id
+    if (certId) {
+      // Пытаемся получить PDF через API
+      const response = await fetch(`${API_BASE}/api/certificate/${certId}`)
+      if (response.ok) {
+        const blob = await response.blob()
+        if (blob.type === 'application/pdf') {
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = `certificate_${certId}.pdf`
+          a.click()
+          window.URL.revokeObjectURL(url)
+          return
+        }
+      }
+    }
+    
+    // Fallback уведомление
+    alert(`PDF yuklab olinmoqda: ${certId} - ${cert.fullName || cert.name}`)
   } catch (error) {
     console.error('Error downloading certificate:', error)
     alert('PDF yuklab olishda xatolik yuz berdi')
@@ -323,21 +388,64 @@ const downloadCertificate = async (cert) => {
 }
 
 const viewFullscreen = (cert) => {
-  alert(`To'liq ko'rish: ${cert.fullName} - ${cert.id}`)
+  const certName = cert.fullName || cert.name || 'Noma\'lum'
+  const certId = cert.id || cert.uuid || 'N/A'
+  alert(`To'liq ko'rish: ${certName} - ${certId}`)
+}
+
+const retryFetch = () => {
+  error.value = null
+  if (searchQuery.value.trim()) {
+    fetchCertificates(searchQuery.value)
+  }
+}
+
+// Fallback данные на случай если API не работает
+const getFallbackCertificates = () => {
+  return [
+    {
+      id: 'DIC000001',
+      fullName: 'AZAMOV ISMOIL',
+      course: 'Computer literacy',
+      startDate: '18 th October',
+      endDate: '18 th December',
+      year: '2023',
+      hours: '48',
+      issueDate: '03.02.2024',
+      director: 'Urol Khabibov'
+    },
+    {
+      id: 'DIC000002',
+      fullName: 'KARIMOV AZIZ',
+      course: 'Full Stack Development',
+      startDate: '1 st March',
+      endDate: '1 st June',
+      year: '2024',
+      hours: '120',
+      issueDate: '15.06.2024',
+      director: 'Urol Khabibov'
+    },
+    {
+      id: 'DIC000003',
+      fullName: 'RAVSHANOV ISLOMBEK',
+      course: 'Full Stack Development',
+      startDate: '1 st March',
+      endDate: '4 st July',
+      year: '2023',
+      hours: '140',
+      issueDate: '04.07.2023',
+      director: 'Urol Khabibov'
+    }
+  ]
 }
 
 // Lifecycle
 onMounted(() => {
-  // Simulate initial loading
-  setTimeout(() => {
-    isHiding.value = true
-    setTimeout(() => {
-      isLoading.value = false
-    }, 800)
-  }, 1200)
+  // Kerak bosa birdaniga fetch qilishniyam iloji bo!
+  // fetchCertificates('')
 })
-
 </script>
+
 
 <style scoped>
 

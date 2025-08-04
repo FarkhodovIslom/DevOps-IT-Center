@@ -1,13 +1,30 @@
 <template>
   <div class="qa-section">
     <!-- Header -->
-      <div class="section-header">
-        <h2 class="section-title">Ko'p beriladigan savollar</h2>
+    <div class="section-header">
+      <h2 class="section-title">Ko'p beriladigan savollar</h2>
+    </div>
+
+    <!-- Loading State -->
+    <div v-if="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>FAQ'lar yuklanmoqda...</p>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="error" class="error-container">
+      <div class="error-message">
+        <h3>Xatolik yuz berdi</h3>
+        <p>{{ error }}</p>
+        <button @click="fetchFaqs" class="retry-button">Qayta urinish</button>
       </div>
-    <div class="qa-container">
+    </div>
+
+    <!-- FAQ Content -->
+    <div v-else class="qa-container">
       <div 
         v-for="(item, index) in qaData" 
-        :key="index"
+        :key="item.id"
         class="qa-item"
         :class="{ 'active': openItems[index] }"
       >
@@ -46,6 +63,11 @@
           </div>
         </div>
       </div>
+
+      <!-- Empty State -->
+      <div v-if="qaData.length === 0" class="empty-state">
+        <p>Hozircha savollar mavjud emas</p>
+      </div>
     </div>
   </div>
 </template>
@@ -56,45 +78,95 @@ export default {
   data() {
     return {
       openItems: {},
-      qaData: [
-        {
-          question: "React kursida nimalar o'rgatiladi?",
-          answer: "React kursida siz zamonaviy frontend development asoslarini o'rganasiz: komponentlar, hooks, state management, routing, va real loyihalar ustida ishlashni. Kurs oxirida to'liq web ilovalar yarata olasiz."
-        },
-        {
-          question: "Bootcamp foundation va standart dasturlash kurslarining farqi nimada?",
-          answer: "Foundation kurs - bu dasturlash asoslari uchun, hech qanday tajriba talab qilmaydi. Standart kurslar esa maxsus texnologiyalar bo'yicha chuqur bilim beradi va asosiy bilimlar talab qiladi."
-        },
-        {
-          question: "\"DevOps IT Center\" imtihon bilan qabul qiladimi?",
-          answer: "Ha, bizda maxsus test va suhbat o'tkaziladi. Bu sizning hozirgi bilim darajangizni aniqlash va to'g'ri kursni tanlash uchun kerak."
-        },
-        {
-          question: "\"DevOps IT Center\" qayerda joylashgan?",
-          answer: "Bizning asosiy filialimiz Toshkent shahrida joylashgan. Shuningdek, onlayn formatda ham kurslar mavjud."
-        },
-        {
-          question: "\"DevOps IT Center\"da qanday kurslar bor?",
-          answer: "Bizda Frontend (React, Vue), Backend (Node.js, Python), DevOps, Mobile development va Data Science bo'yicha kurslar mavjud. Har bir yo'nalish bo'yicha boshlang'ich va ilg'or darajadagi dasturlar bor."
-        },
-        {
-          question: "Til kurslari bormi?",
-          answer: "Ha, IT sohasida ishlash uchun zarur bo'lgan ingliz tili kurslari ham mavjud. Bu kurslar texnik ingliz tiliga e'tibor qaratilgan."
-        },
-        {
-          question: "\"DevOps IT Center\" ish bilan ta'minlaydimi?",
-          answer: "Kursni muvaffaqiyatli tugatgan o'quvchilarimizga ish topishda yordam beramiz. Bizning hamkor kompaniyalarimiz bilan aloqa o'rnatamiz va CV tayyorlashda ko'maklashamiz."
-        }
-      ]
+      qaData: [],
+      loading: false,
+      error: null
     }
   },
+  
+  async mounted() {
+    await this.fetchFaqs();
+  },
+  
   methods: {
+    async fetchFaqs() {
+      this.loading = true;
+      this.error = null;
+      
+      try {
+        const response = await fetch('https://devops-itc.alwaysdata.net/api/faqs/');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // API ni o'zmizga kerakli ofrmatga map qiamiz
+        // Chunki ergash degenerat title/description ishlatgan question/answerni o'rniga 
+        this.qaData = data.map(item => ({
+          id: item.id,
+          question: item.title,
+          answer: item.description || 'Javob mavjud emas'
+        }));
+        
+      } catch (err) {
+        console.error('FAQ fetch error:', err);
+        this.error = `FAQ'larni yuklashda xatolik: ${err.message}`;
+        
+        // Fallback к статическим данным если API сдох
+        this.qaData = this.getFallbackData();
+      } finally {
+        this.loading = false;
+      }
+    },
+    
     toggleItem(index) {
-      // Vue 3 compatible way
       this.openItems = {
         ...this.openItems,
         [index]: !this.openItems[index]
       };
+    },
+    
+    // Static data agar api o'lgan bo'lsa
+    getFallbackData() {
+      return [
+        {
+          id: 1,
+          question: "React kursida nimalar o'rgatiladi?",
+          answer: "React kursida siz zamonaviy frontend development asoslarini o'rganasiz: komponentlar, hooks, state management, routing, va real loyihalar ustida ishlashni. Kurs oxirida to'liq web ilovalar yarata olasiz."
+        },
+        {
+          id: 2,
+          question: "Bootcamp foundation va standart dasturlash kurslarining farqi nimada?",
+          answer: "Foundation kurs - bu dasturlash asoslari uchun, hech qanday tajriba talab qilmaydi. Standart kurslar esa maxsus texnologiyalar bo'yicha chuqur bilim beradi va asosiy bilimlar talab qiladi."
+        },
+        {
+          id: 3,
+          question: "\"DevOps IT Center\" imtihon bilan qabul qiladimi?",
+          answer: "Ha, bizda maxsus test va suhbat o'tkaziladi. Bu sizning hozirgi bilim darajangizni aniqlash va to'g'ri kursni tanlash uchun kerak."
+        },
+        {
+          id: 4,
+          question: "\"DevOps IT Center\" qayerda joylashgan?",
+          answer: "Bizning asosiy filialimiz Toshkent shahrida joylashgan. Shuningdek, onlayn formatda ham kurslar mavjud."
+        },
+        {
+          id: 5,
+          question: "\"DevOps IT Center\"da qanday kurslar bor?",
+          answer: "Bizda Frontend (React, Vue), Backend (Node.js, Python), DevOps, Mobile development va Data Science bo'yicha kurslar mavjud. Har bir yo'nalish bo'yicha boshlang'ich va ilg'or darajadagi dasturlar bor."
+        },
+        {
+          id: 6,
+          question: "Til kurslari bormi?",
+          answer: "Ha, IT sohasida ishlash uchun zarur bo'lgan ingliz tili kurslari ham mavjud. Bu kurslar texnik ingliz tiliga e'tibor qaratilgan."
+        },
+        {
+          id: 7,
+          question: "\"DevOps IT Center\" ish bilan ta'minlaydimi?",
+          answer: "Kursni muvaffaqiyatli tugatgan o'quvchilarimizga ish topishda yordam beramiz. Bizning hamkor kompaniyalarimiz bilan aloqa o'rnatamiz va CV tayyorlashda ko'maklashamiz."
+        }
+      ];
     }
   }
 }
