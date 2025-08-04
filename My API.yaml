@@ -1,0 +1,365 @@
+openapi: 3.0.3
+info:
+  title: My API
+  version: 1.0.0
+  description: API documentation for my Django project.
+paths:
+  /api/blogs/:
+    get:
+      operationId: blogs_list
+      tags:
+      - blogs
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/blogs/{id}:
+    get:
+      operationId: blogs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - blogs
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blog'
+          description: ''
+  /api/certificate/{uuid}:
+    get:
+      operationId: certificate_retrieve
+      parameters:
+      - in: path
+        name: uuid
+        schema:
+          type: string
+        required: true
+      tags:
+      - certificate
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/certificates/:
+    get:
+      operationId: certificates_retrieve
+      tags:
+      - certificates
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/course/{id}:
+    get:
+      operationId: course_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - course
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/course/about/{id}:
+    get:
+      operationId: course_about_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - course
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/course/lp/{id}:
+    get:
+      operationId: course_lp_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - course
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/course/statistics/:
+    get:
+      operationId: course_statistics_retrieve
+      tags:
+      - course
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/courses/:
+    get:
+      operationId: courses_retrieve
+      tags:
+      - courses
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/courses/about/:
+    get:
+      operationId: courses_about_retrieve
+      tags:
+      - courses
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/faqs/:
+    get:
+      operationId: faqs_list
+      tags:
+      - faqs
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FaqsSerializers'
+          description: ''
+  /api/faqs/{id}/:
+    get:
+      operationId: faqs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - faqs
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FaqsSerializers'
+          description: ''
+  /api/leads/:
+    post:
+      operationId: leads_create
+      description: Create a new lead
+      tags:
+      - leads
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Leads'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Leads'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Leads'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leads'
+          description: ''
+  /api/statistics/:
+    get:
+      operationId: statistics_list
+      tags:
+      - statistics
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Statistics'
+          description: ''
+  /api/statistics/{id}:
+    get:
+      operationId: statistics_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - statistics
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Statistics'
+          description: ''
+components:
+  schemas:
+    Blog:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          nullable: true
+          maxLength: 255
+        body:
+          type: string
+        type:
+          type: integer
+          nullable: true
+        views:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/BlogImage'
+          readOnly: true
+      required:
+      - body
+      - id
+      - images
+    BlogImage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        image:
+          type: string
+          format: uri
+      required:
+      - id
+      - image
+    BranchesEnum:
+      enum:
+      - krug
+      - Park
+      type: string
+      description: |-
+        * `krug` - Krug Filiali
+        * `Park` - Park Filiali
+    FaqsSerializers:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+      required:
+      - id
+      - title
+    Leads:
+      type: object
+      properties:
+        fullname:
+          type: string
+          maxLength: 255
+        phone_number:
+          type: string
+          maxLength: 20
+        branches:
+          $ref: '#/components/schemas/BranchesEnum'
+        is_online:
+          type: boolean
+        is_offline:
+          type: boolean
+        is_agree:
+          type: boolean
+      required:
+      - fullname
+      - phone_number
+    Statistics:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        all_students:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Number of all students
+          description: jami bitiruvchilar sonini kiriting
+        experience:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Years of experience
+          description: Tajriba yilini kiriting
+        num_branches:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Number of branches
+          description: Filiallar sonini kiriting
+        num_staff:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          title: Number of employees
+          description: Xodimlar sonini kiriting
+      required:
+      - all_students
+      - experience
+      - id
+      - num_branches
+      - num_staff

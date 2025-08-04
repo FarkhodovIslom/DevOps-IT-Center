@@ -1,6 +1,5 @@
 <template>
   <div class="certificates-container">
-
     <!-- Background Effects -->
     <div class="bg-effects">
       <div class="bg-circle bg-circle-1"></div>
@@ -11,30 +10,43 @@
     <div class="content-wrapper">
       <!-- Main Title -->
       <div class="main-title">
-        <h1 class="title-primary">
-          BITIRUV SERTIFIKATINGIZNI
-        </h1>
-        <h2 class="title-secondary">
-          TEKSHIRISH VA YUKLAB OLISH UCHUN
-        </h2>
+        <h1 class="title-primary">Bitiruv sertifikatingizni</h1>
+        <h2 class="title-secondary"><b>tekshirish</b> va <b>yuklab olish</b></h2>
       </div>
 
-      <!-- Quick Search -->
-      <div class="quick-search-section">
+      <!-- Search Form -->
+      <div class="search-section">
         <div class="search-card">
-          <form @submit.prevent="quickSearch" class="search-form">
-            <div class="search-input-wrapper">
-              <input
-                id="search"
-                v-model="searchQuery"
-                type="text"
-                placeholder="Familiyangiz yoki ismingizni yozing"
-                class="search-input"
-              />
+          <form @submit.prevent="searchCertificates" class="search-form">
+            <div class="input-group">
+              <div class="input-wrapper">
+                <input
+                  v-model="searchForm.firstName"
+                  type="text"
+                  placeholder="Ismingiz"
+                  class="search-input"
+                />
+              </div>
+              <div class="input-wrapper">
+                <input
+                  v-model="searchForm.lastName"
+                  type="text"
+                  placeholder="Familiyangiz"
+                  class="search-input"
+                />
+              </div>
+              <div class="input-wrapper">
+                <input
+                  v-model="searchForm.certificateId"
+                  type="text"
+                  placeholder="Sertifikat ID (масалан: DIC001300)"
+                  class="search-input"
+                />
+              </div>
             </div>
             <button
               type="submit"
-              :disabled="loading"
+              :disabled="loading || !isFormValid"
               class="search-btn"
             >
               <div v-if="loading" class="loading-spinner"></div>
@@ -52,129 +64,7 @@
         <div class="error-message">
           <h3>Xatolik yuz berdi</h3>
           <p>{{ error }}</p>
-          <button @click="retryFetch" class="retry-button">Qayta urinish</button>
-        </div>
-      </div>
-
-      <!-- Main Content -->
-      <div class="main-content">
-        <div class="content-grid">
-          <!-- Search Form -->
-          <div class="form-section">
-            <div class="form-card">
-              <h3 class="form-title">
-                <UserIcon class="form-icon" />
-                <span>Bitiruvchi ma'lumotlari</span>
-              </h3>
-
-              <form @submit.prevent="searchCertificates" class="certificate-form">
-                <div class="form-group">
-                  <label class="form-label">Familyasi:</label>
-                  <input
-                    v-model="formData.familiya"
-                    type="text"
-                    placeholder="Ravshanov"
-                    class="form-input"
-                    :disabled="loading"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Ismi:</label>
-                  <input
-                    v-model="formData.ism"
-                    type="text"
-                    placeholder="Islombek"
-                    class="form-input"
-                    :disabled="loading"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">ID raqami:</label>
-                  <div class="input-with-icon">
-                    <HashIcon class="input-icon" />
-                    <input
-                      v-model="formData.idRaqami"
-                      type="text"
-                      placeholder="DIC000001"
-                      class="form-input with-icon"
-                      :disabled="loading"
-                    />
-                  </div>
-                </div>
-
-                <div class="info-box">
-                  <p class="info-text">
-                    <InfoIcon class="info-icon" />
-                    <span>Sertifikatni PDF formatda yuklab olishingiz mumkin</span>
-                  </p>
-                </div>
-
-                <button
-                  type="submit"
-                  :disabled="loading"
-                  class="submit-btn"
-                >
-                  <DownloadIcon class="btn-icon" />
-                  <span>{{ loading ? 'Qidirilmoqda...' : 'Yuklab olish' }}</span>
-                </button>
-              </form>
-            </div>
-          </div>
-
-          <!-- PDF Viewer -->
-          <div class="pdf-section">
-            <div class="pdf-card">
-              <div v-if="selectedCertificate" class="pdf-viewer">
-                <div class="pdf-header">
-                  <h3 class="pdf-title">{{ selectedCertificate.fullName || selectedCertificate.name || 'Noma\'lum' }} - Sertifikat</h3>
-                  <div class="pdf-actions">
-                    <button @click="downloadCertificate(selectedCertificate)" class="pdf-download-btn">
-                      <DownloadIcon class="btn-icon" />
-                      PDF yuklab olish
-                    </button>
-                    <button @click="viewFullscreen(selectedCertificate)" class="pdf-view-btn">
-                      <MaximizeIcon class="btn-icon" />
-                      To'liq ko'rish
-                    </button>
-                  </div>
-                </div>
-                
-                <div class="pdf-placeholder">
-                  <div class="pdf-icon-wrapper">
-                    <FileTextIcon class="pdf-icon" />
-                  </div>
-                  <h4 class="pdf-placeholder-title">{{ selectedCertificate.fullName || selectedCertificate.name || 'Noma\'lum' }}</h4>
-                  <p class="pdf-placeholder-subtitle">{{ selectedCertificate.course || selectedCertificate.courseName || 'Kurs nomi noma\'lum' }}</p>
-                  <div class="pdf-details">
-                    <div class="pdf-detail">
-                      <span class="detail-label">ID:</span>
-                      <span class="detail-value">{{ selectedCertificate.id || selectedCertificate.uuid || 'N/A' }}</span>
-                    </div>
-                    <div class="pdf-detail" v-if="selectedCertificate.hours">
-                      <span class="detail-label">Soat:</span>
-                      <span class="detail-value">{{ selectedCertificate.hours }} soat</span>
-                    </div>
-                    <div class="pdf-detail" v-if="selectedCertificate.year">
-                      <span class="detail-label">Yil:</span>
-                      <span class="detail-value">{{ selectedCertificate.year }}</span>
-                    </div>
-                    <div class="pdf-detail" v-if="selectedCertificate.issueDate || selectedCertificate.date">
-                      <span class="detail-label">Berilgan:</span>
-                      <span class="detail-value">{{ selectedCertificate.issueDate || selectedCertificate.date }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div v-else class="pdf-empty">
-                <FileSearchIcon class="empty-icon" />
-                <p class="empty-title">Ma'lumotlarni kiriting</p>
-                <p class="empty-subtitle">Sertifikat PDF fayli shu yerda ko'rinadi</p>
-              </div>
-            </div>
-          </div>
+          <button @click="clearError" class="retry-button">Qayta qidirish</button>
         </div>
       </div>
 
@@ -184,31 +74,31 @@
         <div class="results-grid">
           <div
             v-for="cert in certificates"
-            :key="cert.id || cert.uuid"
-            @click="selectCertificate(cert)"
+            :key="cert.certificate_id || cert.id"
             class="result-card"
-            :class="{ 'active': selectedCertificate && (selectedCertificate.id === cert.id || selectedCertificate.uuid === cert.uuid) }"
           >
             <div class="result-header">
               <div class="result-id">
                 <AwardIcon class="result-icon" />
-                <span class="id-text">{{ cert.id || cert.uuid || 'N/A' }}</span>
+                <span class="id-text">{{ cert.certificate_id || cert.id || 'N/A' }}</span>
               </div>
-              <button @click.stop="downloadCertificate(cert)" class="result-download">
-                <DownloadIcon class="download-icon" />
-              </button>
+              <div class="result-actions">
+                <button @click="viewCertificate(cert)" class="action-btn view-btn" title="Кўриш">
+                  <EyeIcon class="action-icon" />
+                </button>
+                <button @click="downloadCertificate(cert)" class="action-btn download-btn" title="Юклаб олиш">
+                  <DownloadIcon class="action-icon" />
+                </button>
+              </div>
             </div>
 
-            <h4 class="result-name">{{ cert.fullName || cert.name || 'Noma\'lum' }}</h4>
-            <p class="result-course">{{ cert.course || cert.courseName || 'Kurs nomi noma\'lum' }}</p>
-            <p class="result-meta" v-if="cert.hours || cert.year">
-              {{ cert.hours ? cert.hours + ' soat' : '' }}{{ cert.hours && cert.year ? ' • ' : '' }}{{ cert.year || '' }}
-            </p>
-
-            <div class="result-footer" v-if="cert.issueDate || cert.date">
-              <p class="result-date">
+            <h4 class="result-name">{{ getFullName(cert) }}</h4>
+            <p class="result-course">{{ cert.course_name || 'Kurs nomi topilmadi' }}</p>
+            
+            <div class="result-footer">
+              <p v-if="cert.created_at" class="result-date">
                 <CalendarIcon class="date-icon" />
-                <span>Berilgan: {{ cert.issueDate || cert.date }}</span>
+                <span>{{ formatDate(cert.created_at) }}</span>
               </p>
             </div>
           </div>
@@ -216,333 +106,227 @@
       </div>
 
       <!-- No Results -->
-      <div v-else-if="searchAttempted && !loading" class="no-results">
+      <div v-else-if="searchAttempted && !loading && !error" class="no-results">
         <FileSearchIcon class="no-results-icon" />
         <h3 class="no-results-title">Sertifikat topilmadi</h3>
-        <p class="no-results-subtitle">Boshqa nom yoki ID bilan qidirib ko'ring</p>
+        <p class="no-results-subtitle">Ism,Familiya va IDni to'g'ri kiriting</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { 
   Search as SearchIcon,
-  User as UserIcon,
-  Hash as HashIcon,
-  Info as InfoIcon,
   Download as DownloadIcon,
-  FileText as FileTextIcon,
-  Maximize as MaximizeIcon,
   FileSearch as FileSearchIcon,
   Award as AwardIcon,
-  Calendar as CalendarIcon
+  Calendar as CalendarIcon,
+  Eye as EyeIcon
 } from 'lucide-vue-next'
 
-// Reactive data
-const searchQuery = ref('')
+// Reactive state
+const searchForm = ref({
+  firstName: '',
+  lastName: '',
+  certificateId: ''
+})
+
 const certificates = ref([])
 const loading = ref(false)
-const selectedCertificate = ref(null)
 const error = ref(null)
 const searchAttempted = ref(false)
 
-const formData = ref({
-  familiya: '',
-  ism: '',
-  idRaqami: ''
-})
-
-// Base API URL 
+// API configuration
 const API_BASE = 'https://devops-itc.alwaysdata.net'
 
+// Computed properties
+const isFormValid = computed(() => {
+  const hasName = searchForm.value.firstName.trim() && searchForm.value.lastName.trim()
+  const hasId = searchForm.value.certificateId.trim()
+  return hasName || hasId
+})
+
+const fullName = computed(() => {
+  return `${searchForm.value.firstName.trim()} ${searchForm.value.lastName.trim()}`.trim()
+})
+
 // Methods
-const quickSearch = async () => {
-  if (!searchQuery.value.trim()) return
-  await fetchCertificates(searchQuery.value)
-}
-
 const searchCertificates = async () => {
-  const query = `${formData.value.familiya} ${formData.value.ism} ${formData.value.idRaqami}`.trim()
-  if (!query) return
-  await fetchCertificates(query)
-}
+  if (!isFormValid.value) return
 
-// Попытка получить конкретный сертификат по UUID
-const fetchCertificateByUuid = async (uuid) => {
-  try {
-    const response = await fetch(`${API_BASE}/api/certificate/${uuid}`)
-    if (response.ok) {
-      const data = await response.json()
-      return data
-    }
-  } catch (err) {
-    console.error('Error fetching certificate by UUID:', err)
-  }
-  return null
-}
-
-const fetchCertificates = async (query) => {
   loading.value = true
   error.value = null
   searchAttempted.value = true
-  
+  certificates.value = []
+
   try {
-    // Сначала пытаемся получить все сертификаты
-    const response = await fetch(`${API_BASE}/api/certificates/`)
+    let response
+
+    // Определяем режим поиска и запрос
+    const hasName = searchForm.value.firstName.trim() && searchForm.value.lastName.trim()
+    const hasId = searchForm.value.certificateId.trim()
     
+    if (hasId) {
+      // Поиск по ID сертификата (приоритетный)
+      const params = new URLSearchParams({
+        certificate_id: searchForm.value.certificateId.trim()
+      })
+      response = await fetch(`${API_BASE}/api/certificates/?${params}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+    } else if (hasName) {
+      // Поиск по имени
+      const params = new URLSearchParams({
+        fullname: fullName.value
+      })
+      response = await fetch(`${API_BASE}/api/certificates/?${params}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
-    
+
     const data = await response.json()
-    
-    // Если API вернул пустой ответ или null, используем fallback
-    if (!data || (Array.isArray(data) && data.length === 0)) {
-      console.warn('API returned empty data, using fallback')
-      certificates.value = getFallbackCertificates().filter(cert =>
-        matchesCertificate(cert, query)
-      )
-    } else {
-      // Фильтруем результаты по поисковому запросу
-      const allCertificates = Array.isArray(data) ? data : [data]
-      certificates.value = allCertificates.filter(cert => 
-        matchesCertificate(cert, query)
-      )
-    }
-
-    // Если ничего не найдено, пробуем поискать по UUID
-    if (certificates.value.length === 0 && query.trim().length > 3) {
-      const singleCert = await fetchCertificateByUuid(query.trim())
-      if (singleCert) {
-        certificates.value = [singleCert]
-      }
-    }
-
-    if (certificates.value.length > 0) {
-      selectedCertificate.value = certificates.value[0]
-    } else {
-      selectedCertificate.value = null
-    }
+    certificates.value = Array.isArray(data) ? data : [data].filter(Boolean)
 
   } catch (err) {
     console.error('Error fetching certificates:', err)
-    error.value = `Sertifikatlarni yuklashda xatolik: ${err.message}`
-    
-    // Fallback на случай ошибки API
-    certificates.value = getFallbackCertificates().filter(cert =>
-      matchesCertificate(cert, query)
-    )
-    
-    if (certificates.value.length > 0) {
-      selectedCertificate.value = certificates.value[0]
-    }
+    error.value = `Kiritilgan ma'lumotlarga mos keladigan sertifikat topilmadi`
   } finally {
     loading.value = false
   }
 }
 
-// Проверяем соответствие сертификата поисковому запросу
-const matchesCertificate = (cert, query) => {
-  const searchTerm = query.toLowerCase()
-  const fullName = (cert.fullName || cert.name || '').toLowerCase()
-  const id = (cert.id || cert.uuid || '').toLowerCase()
-  const course = (cert.course || cert.courseName || '').toLowerCase()
-  
-  return fullName.includes(searchTerm) || 
-         id.includes(searchTerm) || 
-         course.includes(searchTerm)
-}
-
-const selectCertificate = (cert) => {
-  selectedCertificate.value = cert
+const viewCertificate = (cert) => {
+  if (cert.certificate_url) {
+    window.open(cert.certificate_url, '_blank')
+  } else {
+    alert('Сеrтификат URL топилмади')
+  }
 }
 
 const downloadCertificate = async (cert) => {
+  const certId = cert.certificate_id || cert.id
+  const certName = getFullName(cert)
+  
+  if (!confirm(`Сеrтификатни юклаб олишни хохлайсизми?\n\nИсми: ${certName}\nID: ${certId}`)) {
+    return
+  }
+  
   try {
-    const certId = cert.uuid || cert.id
-    if (certId) {
-      // Пытаемся получить PDF через API
-      const response = await fetch(`${API_BASE}/api/certificate/${certId}`)
-      if (response.ok) {
-        const blob = await response.blob()
-        if (blob.type === 'application/pdf') {
-          const url = window.URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = `certificate_${certId}.pdf`
-          a.click()
-          window.URL.revokeObjectURL(url)
-          return
-        }
-      }
+    if (cert.certificate_url) {
+      // Direct download from URL
+      const a = document.createElement('a')
+      a.href = cert.certificate_url
+      a.download = `certificate_${certId}.pdf`
+      a.target = '_blank'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    } else {
+      // Если нет URL, показываем сообщение
+      alert(`Сертификат URL топилмади: ${certId} - ${certName}`)
     }
-    
-    // Fallback уведомление
-    alert(`PDF yuklab olinmoqda: ${certId} - ${cert.fullName || cert.name}`)
   } catch (error) {
     console.error('Error downloading certificate:', error)
-    alert('PDF yuklab olishda xatolik yuz berdi')
+    alert('Файл юклаб олишда хатолик юз берди')
   }
 }
 
-const viewFullscreen = (cert) => {
-  const certName = cert.fullName || cert.name || 'Noma\'lum'
-  const certId = cert.id || cert.uuid || 'N/A'
-  alert(`To'liq ko'rish: ${certName} - ${certId}`)
+const getFullName = (cert) => {
+  const firstName = cert.first_name || ''
+  const lastName = cert.last_name || ''
+  return `${firstName} ${lastName}`.trim() || 'Номаълум'
 }
 
-const retryFetch = () => {
+const formatDate = (dateString) => {
+  if (!dateString) return ''
+  try {
+    return new Date(dateString).toLocaleDateString('uz-UZ', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+  } catch (e) {
+    return dateString
+  }
+}
+
+const clearError = () => {
   error.value = null
-  if (searchQuery.value.trim()) {
-    fetchCertificates(searchQuery.value)
-  }
 }
-
-// Fallback данные на случай если API не работает
-const getFallbackCertificates = () => {
-  return [
-    {
-      id: 'DIC000001',
-      fullName: 'AZAMOV ISMOIL',
-      course: 'Computer literacy',
-      startDate: '18 th October',
-      endDate: '18 th December',
-      year: '2023',
-      hours: '48',
-      issueDate: '03.02.2024',
-      director: 'Urol Khabibov'
-    },
-    {
-      id: 'DIC000002',
-      fullName: 'KARIMOV AZIZ',
-      course: 'Full Stack Development',
-      startDate: '1 st March',
-      endDate: '1 st June',
-      year: '2024',
-      hours: '120',
-      issueDate: '15.06.2024',
-      director: 'Urol Khabibov'
-    },
-    {
-      id: 'DIC000003',
-      fullName: 'RAVSHANOV ISLOMBEK',
-      course: 'Full Stack Development',
-      startDate: '1 st March',
-      endDate: '4 st July',
-      year: '2023',
-      hours: '140',
-      issueDate: '04.07.2023',
-      director: 'Urol Khabibov'
-    }
-  ]
-}
-
-// Lifecycle
-onMounted(() => {
-  // Kerak bosa birdaniga fetch qilishniyam iloji bo!
-  // fetchCertificates('')
-})
 </script>
 
-
 <style scoped>
-
+* {
+  transition: all 0.25s cubic-bezier(0.86, 0, 0.07, 1);
+}
 .certificates-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
   overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.loader-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #1e3a8a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.8s ease;
-}
-
-.loader-container.fade-out {
-  opacity: 0;
-}
-
-.loader {
-  text-align: center;
-  color: white;
-}
-
-.loader-text {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.load {
-  width: 50px;
-  height: 50px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid white;
-  border-radius: 50%;
-  display: inline-block;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
+/* Background Effects */
 .bg-effects {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .bg-circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   animation: float 6s ease-in-out infinite;
 }
 
 .bg-circle-1 {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   top: 10%;
-  right: 10%;
+  left: -100px;
   animation-delay: 0s;
 }
 
 .bg-circle-2 {
-  width: 150px;
-  height: 150px;
-  bottom: 20%;
-  left: 5%;
+  width: 200px;
+  height: 200px;
+  top: 60%;
+  right: -50px;
   animation-delay: 2s;
 }
 
 .bg-circle-3 {
-  width: 100px;
-  height: 100px;
-  top: 50%;
-  left: 80%;
+  width: 150px;
+  height: 150px;
+  top: 80%;
+  left: 20%;
   animation-delay: 4s;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
 }
 
 .content-wrapper {
@@ -561,76 +345,102 @@ onMounted(() => {
 
 .title-primary {
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
 }
 
 .title-secondary {
   font-size: 1.5rem;
   font-weight: 400;
-  opacity: 0.9;
+  opacity: 0.95;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.quick-search-section {
+.search-section {
   margin-bottom: 3rem;
 }
 
 .search-card {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .search-form {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.search-input-wrapper {
-  flex: 1;
+.input-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input-wrapper {
+  position: relative;
 }
 
 .search-input {
   width: 100%;
-  padding: 1rem;
+  padding: 1.25rem 1rem;
   border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-size: 1rem;
   transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: #374151;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
 }
 
 .search-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #3b82f6;
+  justify-content: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #523aed 0%, #5563f7 100%);
   color: white;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 2rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
 }
 
 .search-btn:hover:not(:disabled) {
-  background: #2563eb;
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #6628d9 0%, #5833ea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
 }
 
 .search-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .loading-spinner {
@@ -642,275 +452,8 @@ onMounted(() => {
   animation: spin 1s linear infinite;
 }
 
-.main-content {
-  margin-bottom: 3rem;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.form-card, .pdf-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.form-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
-}
-
-.form-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #3b82f6;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #374151;
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.form-input:disabled {
-  background-color: #f9fafb;
-  color: #6b7280;
-  cursor: not-allowed;
-}
-
-.input-with-icon {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1rem;
-  height: 1rem;
-  color: #6b7280;
-}
-
-.form-input.with-icon {
-  padding-left: 2.5rem;
-}
-
-.info-box {
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.info-text {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #1e40af;
-  font-size: 0.875rem;
-}
-
-.info-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.submit-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: #10b981;
-  color: white;
-  padding: 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background: #059669;
-  transform: translateY(-1px);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.pdf-viewer {
-  min-height: 400px;
-}
-
-.pdf-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.pdf-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.pdf-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.pdf-download-btn, .pdf-view-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.pdf-download-btn {
-  background: #3b82f6;
-  color: white;
-}
-
-.pdf-download-btn:hover {
-  background: #2563eb;
-}
-
-.pdf-view-btn {
-  background: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
-}
-
-.pdf-view-btn:hover {
-  background: #e5e7eb;
-}
-
-.pdf-placeholder {
-  text-align: center;
-  padding: 2rem;
-}
-
-.pdf-icon-wrapper {
-  margin-bottom: 1rem;
-}
-
-.pdf-icon {
-  width: 4rem;
-  height: 4rem;
-  color: #3b82f6;
-}
-
-.pdf-placeholder-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.pdf-placeholder-subtitle {
-  color: #6b7280;
-  margin-bottom: 1.5rem;
-}
-
-.pdf-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  text-align: left;
-  background: #f9fafb;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-}
-
-.pdf-detail {
-  display: flex;
-  justify-content: space-between;
-}
-
-.detail-label {
-  font-weight: 600;
-  color: #374151;
-}
-
-.detail-value {
-  color: #1f2937;
-}
-
-.pdf-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  text-align: center;
-  color: #6b7280;
-}
-
-.empty-icon {
-  width: 4rem;
-  height: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.empty-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.empty-subtitle {
-  font-size: 0.875rem;
-  opacity: 0.8;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .results-section {
@@ -919,102 +462,110 @@ onMounted(() => {
 
 .results-title {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
 .result-card {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  cursor: pointer;
+  backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  padding: 2rem;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .result-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-}
-
-.result-card.active {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .result-id {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .result-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: #f59e0b;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #7c3aed;
 }
 
 .id-text {
   font-weight: 700;
-  color: #1f2937;
+  color: #374151;
+  font-size: 1rem;
 }
 
-.result-download {
-  padding: 0.5rem;
-  background: #f3f4f6;
+.result-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.75rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
 }
 
-.result-download:hover {
-  background: #3b82f6;
+.view-btn:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
+  transform: scale(1.05);
 }
 
-.download-icon {
-  width: 1rem;
-  height: 1rem;
+.download-btn:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: white;
+  transform: scale(1.05);
+}
+
+.action-icon {
+  width: 1.125rem;
+  height: 1.125rem;
 }
 
 .result-name {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  color: #374151;
+  margin-bottom: 0.75rem;
 }
 
 .result-course {
-  color: #3b82f6;
+  color: #7c3aed;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.result-meta {
-  color: #6b7280;
-  font-size: 0.875rem;
   margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 .result-footer {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid rgba(124, 58, 237, 0.1);
   padding-top: 1rem;
 }
 
@@ -1029,25 +580,79 @@ onMounted(() => {
 .date-icon {
   width: 1rem;
   height: 1rem;
+  color: #7c3aed;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  margin: 2rem 0;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.error-message h3 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.retry-button {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.retry-button:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: white;
+}
+
+.no-results-icon {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 1.5rem;
+  opacity: 0.7;
+}
+
+.no-results-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.no-results-subtitle {
+  opacity: 0.85;
+  font-size: 1.1rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .search-form {
-    flex-direction: column;
-  }
-  
-  .pdf-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .pdf-details {
-    grid-template-columns: 1fr;
+  .content-wrapper {
+    padding: 1.5rem;
   }
   
   .title-primary {
@@ -1058,12 +663,59 @@ onMounted(() => {
     font-size: 1.25rem;
   }
   
-  .content-wrapper {
-    padding: 1rem;
+  .search-card {
+    padding: 2rem;
+    border-radius: 1.25rem;
+  }
+  
+  .input-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .result-header {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .result-actions {
+    align-self: flex-end;
   }
 }
 
-
-@import '../src/components/styles/style.css';
-@import '../src/components/styles/certificates.css';
+@media (max-width: 480px) {
+  .main-title {
+    margin-bottom: 2rem;
+  }
+  
+  .title-primary {
+    font-size: 1.75rem;
+  }
+  
+  .title-secondary {
+    font-size: 1.1rem;
+  }
+  
+  .search-card {
+    padding: 1.5rem;
+  }
+  
+  .search-input {
+    padding: 1rem;
+  }
+  
+  .search-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .result-card {
+    padding: 1.5rem;
+  }
+}
 </style>
