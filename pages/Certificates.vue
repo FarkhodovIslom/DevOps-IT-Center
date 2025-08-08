@@ -83,10 +83,10 @@
                 <span class="id-text">{{ cert.certificate_id || cert.id || 'N/A' }}</span>
               </div>
               <div class="result-actions">
-                <button @click="viewCertificate(cert)" class="action-btn view-btn" title="Кўриш">
+                <button @click="viewCertificate(cert)" class="action-btn view-btn" title="Ko'rish">
                   <EyeIcon class="action-icon" />
                 </button>
-                <button @click="downloadCertificate(cert)" class="action-btn download-btn" title="Юклаб олиш">
+                <button @click="downloadCertificate(cert)" class="action-btn download-btn" title="Yuklab olish">
                   <DownloadIcon class="action-icon" />
                 </button>
               </div>
@@ -126,7 +126,7 @@ import {
   Eye as EyeIcon
 } from 'lucide-vue-next'
 
-// Reactive state
+// State
 const searchForm = ref({
   firstName: '',
   lastName: '',
@@ -138,21 +138,26 @@ const loading = ref(false)
 const error = ref(null)
 const searchAttempted = ref(false)
 
-// API configuration
 const API_BASE = 'https://devops-itc.alwaysdata.net'
 
-// Computed properties
+// Computed
 const isFormValid = computed(() => {
-  const hasName = searchForm.value.firstName.trim() && searchForm.value.lastName.trim()
-  const hasId = searchForm.value.certificateId.trim()
-  return hasName || hasId
+  const { firstName, lastName, certificateId } = searchForm.value
+  return firstName.trim() && lastName.trim() && certificateId.trim()
 })
 
 const fullName = computed(() => {
-  return `${searchForm.value.firstName.trim()} ${searchForm.value.lastName.trim()}`.trim()
+  const { firstName, lastName } = searchForm.value
+  return `${firstName.trim()} ${lastName.trim()}`.trim()
 })
 
 // Methods
+// =============================================
+//     ALERT!
+//  searchCertificates shunchaki kiritilgan fieldlarni to'g'ri bekendga jonatadi!
+//  Agar sertifikatni qidirish bo'yicha qanaqadir muammo bo'ladigan bo'lsa ayb backenda
+// =============================================
+
 const searchCertificates = async () => {
   if (!isFormValid.value) return
 
@@ -162,47 +167,24 @@ const searchCertificates = async () => {
   certificates.value = []
 
   try {
-    let response
-
-    // Определяем режим поиска и запрос
-    const hasName = searchForm.value.firstName.trim() && searchForm.value.lastName.trim()
-    const hasId = searchForm.value.certificateId.trim()
+    const params = new URLSearchParams({
+      fullname: fullName.value,
+      certificate_id: searchForm.value.certificateId.trim()
+    })
     
-    if (hasId) {
-      // Поиск по ID сертификата (приоритетный)
-      const params = new URLSearchParams({
-        certificate_id: searchForm.value.certificateId.trim()
-      })
-      response = await fetch(`${API_BASE}/api/certificates/?${params}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-    } else if (hasName) {
-      // Поиск по имени
-      const params = new URLSearchParams({
-        fullname: fullName.value
-      })
-      response = await fetch(`${API_BASE}/api/certificates/?${params}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
-    }
+    const response = await fetch(`${API_BASE}/api/certificates/?${params}`, {
+      headers: { 'Accept': 'application/json' }
+    })
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
 
     const data = await response.json()
-    certificates.value = Array.isArray(data) ? data : [data].filter(Boolean)
+    certificates.value = Array.isArray(data) ? data : data ? [data] : []
 
   } catch (err) {
-    console.error('Error fetching certificates:', err)
+    console.error('Search error:', err)
     error.value = `Kiritilgan ma'lumotlarga mos keladigan sertifikat topilmadi`
   } finally {
     loading.value = false
@@ -213,7 +195,7 @@ const viewCertificate = (cert) => {
   if (cert.certificate_url) {
     window.open(cert.certificate_url, '_blank')
   } else {
-    alert('Сеrтификат URL топилмади')
+    alert('Sertifikat URL topilmadi')
   }
 }
 
@@ -221,34 +203,33 @@ const downloadCertificate = async (cert) => {
   const certId = cert.certificate_id || cert.id
   const certName = getFullName(cert)
   
-  if (!confirm(`Сеrтификатни юклаб олишни хохлайсизми?\n\nИсми: ${certName}\nID: ${certId}`)) {
+  if (!cert.certificate_url) {
+    alert(`Sertifikat URL topilmadi: ${certId} - ${certName}`)
+    return
+  }
+
+  if (!confirm(`Sertifikat yuklab olishni hohlaysizmi?\n\nIsm: ${certName}\nID: ${certId}`)) {
     return
   }
   
   try {
-    if (cert.certificate_url) {
-      // Direct download from URL
-      const a = document.createElement('a')
-      a.href = cert.certificate_url
-      a.download = `certificate_${certId}.pdf`
-      a.target = '_blank'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
-    } else {
-      // Если нет URL, показываем сообщение
-      alert(`Сертификат URL топилмади: ${certId} - ${certName}`)
-    }
+    const link = document.createElement('a')
+    link.href = cert.certificate_url
+    link.download = `certificate_${certId}.pdf`
+    link.target = '_blank'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   } catch (error) {
-    console.error('Error downloading certificate:', error)
-    alert('Файл юклаб олишда хатолик юз берди')
+    console.error('Download error:', error)
+    alert('Fayl yuklab olishda xatolik yuz berdi')
   }
 }
 
 const getFullName = (cert) => {
   const firstName = cert.first_name || ''
   const lastName = cert.last_name || ''
-  return `${firstName} ${lastName}`.trim() || 'Номаълум'
+  return `${firstName} ${lastName}`.trim() || 'Noma\'lum'
 }
 
 const formatDate = (dateString) => {
@@ -256,10 +237,10 @@ const formatDate = (dateString) => {
   try {
     return new Date(dateString).toLocaleDateString('uz-UZ', {
       year: 'numeric',
-      month: '2-digit',
+      month: '2-digit', 
       day: '2-digit'
     })
-  } catch (e) {
+  } catch {
     return dateString
   }
 }
