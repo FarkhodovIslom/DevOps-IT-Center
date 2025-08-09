@@ -258,8 +258,9 @@ export default {
         }
       }
     },
+    
+    
     async submitForm() {
-      // Validate all fields
       this.validateField('name');
       this.validateField('phone');
       
@@ -268,21 +269,67 @@ export default {
       this.isLoading = true;
       
       try {
-        // API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        const leadData = {
+          fullname: this.formData.name.trim(),
+          phone_number: this.formData.phone,
+          branches: "krug", // Default branch value
+          is_online: true,  // Assuming online consultation
+          is_offline: false, // Assuming not offline
+          is_agree: this.formData.agreement
+        };
+
+        console.log('Sending data:', leadData); // Debug log
         
+        // Make API call
+        const response = await fetch('https://devops-itc.alwaysdata.net/api/leads/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any required authentication headers if needed
+          },
+          body: JSON.stringify(leadData)
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.text();
+          console.error('API Error Response:', errorData);
+          throw new Error(`HTTP error! status: ${response.status}, details: ${errorData}`);
+        }
+        
+        const responseData = await response.json();
+        console.log('Lead created successfully:', responseData);
+        
+        // Show success message
         this.showSuccess = true;
-        this.formData = { name: '', phone: '', agreement: false };
         
+        // Reset form
+        this.formData = { 
+          name: '', 
+          phone: '', 
+          agreement: false 
+        };
+        
+        // Clear any existing errors
+        this.errors = {};
+        
+        // Hide success message after 5 seconds
         setTimeout(() => {
           this.showSuccess = false;
         }, 5000);
+        
       } catch (error) {
         console.error('Form submission error:', error);
+        
+        // Show error message to user
+        // You might want to add an error state to show user-friendly error messages
+        alert('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+        
       } finally {
         this.isLoading = false;
       }
     }
+
+
   }
 }
 </script>
