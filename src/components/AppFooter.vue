@@ -6,14 +6,9 @@
         <!-- Left Section - Logo & Contact -->
         <div class="footer-section footer-brand">
           <div class="logo-container">
-            <div class="logo">
-              <div class="logo-icon">
-                <img src="../../public/assets/logos/logo-default.png" width="40" alt="">
-              </div>
-              <div class="logo-title">
-                <h3>DEVOPS<br>IT CENTER</h3>
-              </div>
-            </div>
+            <a href="/#" class="logo">
+                <img src="../../public/assets/logos/logo-textright__white.png" alt="">
+            </a>
           </div>
           
           <div class="contact-info">
@@ -37,8 +32,6 @@
             <li><a href="#courses" class="footer-link">Kurslar</a></li>
             <li><a href="#services" class="footer-link">Xizmatlar</a></li>
             <li><a href="#certificates" class="footer-link">Sertifikatlar</a></li>
-            <li><a href="#" class="footer-link">Bo'lib to'lash</a></li>
-            <li><a href="#" class="footer-link">Ta'lim xarajatlarini qaytarib olish</a></li>
             <li><a href="#about" class="footer-link">Biz haqimizda</a></li>
           </ul>
         </div>
@@ -47,20 +40,20 @@
         <div class="footer-section footer-certificates">
           <div class="certificates-grid">
             <div class="certificate-item">
-              <a href="../../public/assets/images/certificate__footer-card.png" target="_blank" class="certificate-image">
-                <i class="fas fa-certificate"></i>
+              <a href="/assets/images/certificate__footer-card.png" target="_blank" class="certificate-image">
+                <img src="/assets/images/certificate__footer-card.png" alt="">
               </a>
               <span class="certificate-label">Guvohnoma</span>
             </div>
             <div class="certificate-item">
-              <a href="../../public/assets/images/residency__footer-card.png" target="_blank" class="certificate-image">
-                <i class="fas fa-award"></i>
+              <a href="/assets/images/residency__footer-card.png" target="_blank" class="certificate-image">
+                <img src="/assets/images/residency__footer-card.png" alt="it_park_rezidency">
               </a>
               <span class="certificate-label">IT Park rezidentlik</span>
             </div>
             <div class="certificate-item">
-              <a href="../../public/assets/images/confirmation__footer-card.png" target="_blank" class="certificate-image">
-                <i class="fas fa-medal"></i>
+              <a href="/assets/images/confirmation__footer-card.png" target="_blank" class="certificate-image">
+                <img src="/assets/images/confirmation__footer-card.png" alt="confirmation">
               </a>
               <span class="certificate-label">Tasdiqlama</span>
             </div>
@@ -151,35 +144,11 @@ export default {
 .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.logo-icon {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #097287, #253064);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
-}
-.logo-icon img {
-  filter: saturate(130%) brightness(120%);
-}
-
-.logo-title h3 {
-  font-size: 1.2rem;
-  font-weight: 800;
-  line-height: 1.2;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+.logo img {
+  width: 100px;
+  padding: 0;
 }
 
 .contact-info {
@@ -299,22 +268,14 @@ export default {
 .certificate-image {
   width: 60px;
   height: 60px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: .2rem;
 }
 
-.certificate-image i {
-  font-size: 1.5rem;
-  color: #00d4ff;
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-}
 
 .certificate-item:hover .certificate-image {
   background: rgba(0, 212, 255, 0.2);

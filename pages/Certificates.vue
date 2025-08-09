@@ -148,7 +148,7 @@ const isFormValid = computed(() => {
 
 const fullName = computed(() => {
   const { firstName, lastName } = searchForm.value
-  return `${firstName.trim()} ${lastName.trim()}`.trim()
+  return `${lastName.trim()} ${firstName.trim()}`
 })
 
 // Methods

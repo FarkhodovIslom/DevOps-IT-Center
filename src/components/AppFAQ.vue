@@ -209,19 +209,11 @@ export default {
 /* Tablet and larger screens */
 @media (min-width: 768px) {
   .qa-container {
-    grid-template-columns: repeat(2, 1fr);
+    width: 50%;
+    grid-template-columns: repeat(1, 1fr);
     gap: 20px;
   }
 }
-
-/* Large screens */
-@media (min-width: 1200px) {
-  .qa-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-}
-
 .qa-item {
   background: #f3f6f8;
   border-radius: 16px;

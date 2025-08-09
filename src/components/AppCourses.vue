@@ -97,7 +97,7 @@ export default {
         },
         {
           id: 7,
-          title: 'SMM + Mediagrafiyu',
+          title: 'SMM + Mediagrafiya',
           description: 'Ijtimoiy tarmoqlar marketingi',
           icon: 'fas fa-share-alt',
           duration: '2 oy'
@@ -180,7 +180,7 @@ export default {
 <style scoped>
 .courses-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -259,6 +259,7 @@ export default {
   max-width: 100%;
   position: relative;
   overflow: hidden;
+  padding: 50px;
 }
 
 /* Course Cards */
