@@ -22,7 +22,8 @@
         >
           <div class="feature-icon">
             <div class="icon-wrapper" :style="{ background: feature.iconBg }">
-              <component :is="feature.icon" />
+              <!-- <component :is="feature.icon" /> -->
+               <i :class="['fas', feature.icon]"></i>
             </div>
           </div>
           <div class="feature-content">
@@ -165,19 +166,19 @@ export default {
         {
           title: 'Zamonaviy Kasblar',
           description: 'Dasturlash, dizayn va marketing kabi zamonaviy kasblar o\'rgatadigan markaz.',
-          icon: 'CodeIcon',
+          icon: 'fa-briefcase',
           iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
         },
         {
           title: 'Kelajakka Murojaat',
           description: 'Zamonaviy kasblar yordamida insonlar hayotini yaxshilovchi va kelajakka bo\'lgan ishonchni mustahkanlovchi maskan.',
-          icon: 'MarketingIcon',
+          icon: 'fa-square-check',
           iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
         },
         {
           title: 'IT Ekspertlari',
           description: 'IT sohasidagi barcha xizmatlarni o\'z kasbining ustalari tomonidan bajaradigan professionallar jamlangan maskan.',
-          icon: 'ProfessionalIcon',
+          icon: 'fa-users-line',
           iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
         }
       ],
@@ -394,9 +395,8 @@ export default {
   transform: scale(1.1) rotate(5deg);
 }
 
-.icon-wrapper svg {
-  width: 32px;
-  height: 32px;
+.icon-wrapper i {
+  font-size: 2rem;
 }
 
 .feature-content h3 {
@@ -443,6 +443,7 @@ export default {
   right: 20px;
   animation: float 4s ease-in-out infinite 2s;
 }
+
 
 /* Course Cards */
 .course-cards {
