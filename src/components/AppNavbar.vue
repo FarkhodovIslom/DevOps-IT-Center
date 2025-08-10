@@ -300,7 +300,7 @@
             <router-link to="/certificates">
               <button class="mobile-cert-btn">Sertifikatlar</button>
             </router-link>
-            <router-link href="/blog">
+            <router-link to="/blog">
               <button class="mobile-cert-btn">Blog</button>
             </router-link>
           </div>
