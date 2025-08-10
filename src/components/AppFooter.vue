@@ -31,6 +31,7 @@
           <ul class="link-list">
             <li><a href="#courses" class="footer-link">Kurslar</a></li>
             <li><a href="#services" class="footer-link">Xizmatlar</a></li>
+            <li><a href="/blog" class="footer-link">Blog</a></li>
             <li><a href="#certificates" class="footer-link">Sertifikatlar</a></li>
             <li><a href="#about" class="footer-link">Biz haqimizda</a></li>
           </ul>

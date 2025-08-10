@@ -3,9 +3,9 @@
     <div class="nav-container">
       <!-- Logo -->
       <div class="logo-section">
-        <router-link to="/" class="logo">
+        <a href="/#" class="logo">
           <img src="/assets/logos/logo-textright__white.png" width="110" alt="DevOps">
-        </router-link>
+        </a>
       </div>
 
       <!-- Navigation Menu -->
@@ -214,16 +214,23 @@
             
           </transition>
         </div>
+
+        <!-- Blog link -->
+        <div class="nav-item">
+          <a href="/blog" class="nav-link">
+            Blog
+          </a>
+        </div>
       </div>
 
       <!-- Right Section -->
       <div class="nav-actions">
-        <router-link to="/certificates">
+        <a href="/certificates">
           <button class="cert-btn">
             <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
             Sertifikatlar
           </button>
-        </router-link>
+        </a>
         
         <a href="tel:+998957781199" class="phone-btn">
           <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -252,19 +259,19 @@
             </svg>
           </button>
           <transition name="mobile-dropdown">
-<div v-if="mobileDropdowns.kurslar" class="mobile-submenu">
-  <a href="#" class="mobile-sublink">Kompytuer Savodxonligi</a>
-  <a href="#" class="mobile-sublink">Malaka Oshirish (Soha xodimlari)</a>
-  <a href="#" class="mobile-sublink">Foundation (ITga kirish)</a>
-  <a href="#" class="mobile-sublink">Front-End Dasturlash</a>
-  <a href="#" class="mobile-sublink">Grafik va Web dizayn</a>
-  <a href="#" class="mobile-sublink">3D Modeling (3D Max, AutoCad)</a>
-  <a href="#" class="mobile-sublink">SMM + Mobilografiya</a>
-  <a href="#" class="mobile-sublink">1C Buxgalteriya</a>
-  <a href="#" class="mobile-sublink">Robototexnika</a>
-  <a href="#" class="mobile-sublink">IT English - Ingliz tili</a>
-  <a href="#" class="mobile-sublink">Matematika</a>
-</div>
+            <div v-if="mobileDropdowns.kurslar" class="mobile-submenu">
+              <a href="#" class="mobile-sublink">Kompytuer Savodxonligi</a>
+              <a href="#" class="mobile-sublink">Malaka Oshirish (Soha xodimlari)</a>
+              <a href="#" class="mobile-sublink">Foundation (ITga kirish)</a>
+              <a href="#" class="mobile-sublink">Front-End Dasturlash</a>
+              <a href="#" class="mobile-sublink">Grafik va Web dizayn</a>
+              <a href="#" class="mobile-sublink">3D Modeling (3D Max, AutoCad)</a>
+              <a href="#" class="mobile-sublink">SMM + Mobilografiya</a>
+              <a href="#" class="mobile-sublink">1C Buxgalteriya</a>
+              <a href="#" class="mobile-sublink">Robototexnika</a>
+              <a href="#" class="mobile-sublink">IT English - Ingliz tili</a>
+              <a href="#" class="mobile-sublink">Matematika</a>
+            </div>
           </transition>
         </div>
         
@@ -289,9 +296,14 @@
         </div>
 
         <div class="mobile-actions">
-          <router-link to="/certificates">
-            <button class="mobile-cert-btn">Sertifikatlar</button>
-          </router-link>
+          <div class="router-links">
+            <a href="/certificates">
+              <button class="mobile-cert-btn">Sertifikatlar</button>
+            </a>
+            <a href="/blog">
+              <button class="mobile-cert-btn">Blog</button>
+            </a>
+          </div>
           <a href="tel:+998957781199" class="mobile-phone-btn">+998 95 778 11 99</a>
         </div>
       </div>
@@ -620,7 +632,7 @@ export default {
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Mobile Menu - Обновлено для поддержки всех курсов */
+/* Mobile Menu - Updated */
 .mobile-menu {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -700,6 +712,12 @@ export default {
   gap: 1rem;
 }
 
+.mobile-actions .router-links {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
 .mobile-cert-btn, .mobile-phone-btn {
   padding: 1rem;
   border-radius: 0.75rem;
@@ -710,10 +728,19 @@ export default {
 }
 
 .mobile-cert-btn {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.55, 1);
+}
+.mobile-cert-btn:hover {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border: none;
+  border-color: #fff;
   cursor: pointer;
+  width: 100%;
 }
 
 .mobile-phone-btn {

@@ -13,14 +13,19 @@ const routes = [
     path: '/certificates', 
     name: 'Certificates', 
     component: () => import('../pages/Certificates.vue') 
+  },
+  { 
+    path: '/blog', 
+    name: 'Blog', 
+    component: () => import('../pages/Blog.vue')
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes
-})
+const router = createRouter({   
+  history: createWebHistory(),   
+  routes 
+})  
 
-const app = createApp(App)
-app.use(router)
+const app = createApp(App) 
+app.use(router) 
 app.mount('#app')
