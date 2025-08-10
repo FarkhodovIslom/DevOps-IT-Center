@@ -1,5 +1,5 @@
 <template>
-  <section class="features-section">
+  <section class="features-section" id="services">
     <div class="features-container">
       <!-- Header -->
       <div class="section-header">
@@ -133,7 +133,7 @@
               <span class="counter" :style="{ color: stat.color }">
                 {{ isIntersecting ? currentCounts[index] : 0 }}
               </span>
-              <span class="stat-suffix">+</span>
+              <span class="stat-suffix">%</span>
             </div>
             <h4 class="stat-label">{{ stat.label }}</h4>
             <p class="stat-description">{{ stat.description }}</p>
@@ -184,22 +184,22 @@ export default {
       ],
       stats: [
         {
-          number: 350,
-          label: 'IT sohasi va Kompyuter kurslarini tugatgan o\'quvchilarimiz',
+          number: 85,
+          label: 'Bitiruvchilarimiz IT sohasi va Kompyuter kurslarini tugatib ish o\'rnini topgan',
           description: '',
           color: '#00d4ff',
           bgGradient: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%)'
         },
         {
-          number: 200,
-          label: 'Davlat va soha-korxona xodimlarining malaka oshirganlar',
+          number: 75,
+          label: 'O\'quvchilarimiz real loyilalarda qatnashib kelishmoqda',
           description: '',
           color: '#667eea',
           bgGradient: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(102, 126, 234, 0.05) 100%)'
         },
         {
-          number: 50,
-          label: 'Sifat va Professional darajadagi xizmat ko\'rsatgan ishlarimiz',
+          number: 55,
+          label: 'Dasturlash kurslarimizni bitirgan o\'quvchilarimizning 55 foizi xalqaro hokatonlarda ishtirok etishdi',
           description: '',
           color: '#f5576c',
           bgGradient: 'linear-gradient(135deg, rgba(245, 87, 108, 0.1) 0%, rgba(245, 87, 108, 0.05) 100%)'

@@ -53,16 +53,16 @@
       <!-- Stats Section -->
       <div class="stats-section">
         <div class="stat-item">
-          <div class="stat-number">95%</div>
+          <div class="stat-number">93%</div>
           <div class="stat-label">Mamnun talabalar</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">500+</div>
+          <div class="stat-number">3000+</div>
           <div class="stat-label">Muvaffaqiyatli bitiruvchi</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">4.9</div>
-          <div class="stat-label">O'rtacha baho</div>
+          <div class="stat-number">5+ yil</div>
+          <div class="stat-label">O'qitish tajribasi</div>
         </div>
       </div>
 

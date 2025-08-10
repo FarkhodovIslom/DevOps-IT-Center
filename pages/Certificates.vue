@@ -1,3 +1,4 @@
+
 <template>
   <div class="certificates-container">
     <!-- Background Effects -->
@@ -86,7 +87,24 @@
                 <button @click="viewCertificate(cert)" class="action-btn view-btn" title="Ko'rish">
                   <EyeIcon class="action-icon" />
                 </button>
-                <button @click="downloadCertificate(cert)" class="action-btn download-btn" title="Yuklab olish">
+                <!-- Optimized link tag for downloading certificate -->
+                <a 
+                  v-if="cert.certificate_url"
+                  :href="cert.certificate_url" 
+                  :download="`certificate_${cert.certificate_id || cert.id}.pdf`"
+                  class="action-btn download-btn" 
+                  title="Yuklab olish"
+                  target="_blank"
+                >
+                  <DownloadIcon class="action-icon" />
+                </a>
+                <!-- Agar URL xato bo'sa alert korsatadi! -->
+                <button 
+                  v-else
+                  @click="showNoUrlAlert(cert)"
+                  class="action-btn download-btn disabled" 
+                  title="Yuklab olish"
+                >
                   <DownloadIcon class="action-icon" />
                 </button>
               </div>
@@ -152,12 +170,6 @@ const fullName = computed(() => {
 })
 
 // Methods
-// =============================================
-//     ALERT!
-//  searchCertificates shunchaki kiritilgan fieldlarni to'g'ri bekendga jonatadi!
-//  Agar sertifikatni qidirish bo'yicha qanaqadir muammo bo'ladigan bo'lsa ayb backenda
-// =============================================
-
 const searchCertificates = async () => {
   if (!isFormValid.value) return
 
@@ -199,31 +211,11 @@ const viewCertificate = (cert) => {
   }
 }
 
-const downloadCertificate = async (cert) => {
+// Простая функция для показа алерта когда нет URL
+const showNoUrlAlert = (cert) => {
   const certId = cert.certificate_id || cert.id
   const certName = getFullName(cert)
-  
-  if (!cert.certificate_url) {
-    alert(`Sertifikat URL topilmadi: ${certId} - ${certName}`)
-    return
-  }
-
-  if (!confirm(`Sertifikat yuklab olishni hohlaysizmi?\n\nIsm: ${certName}\nID: ${certId}`)) {
-    return
-  }
-  
-  try {
-    const link = document.createElement('a')
-    link.href = cert.certificate_url
-    link.download = `certificate_${certId}.pdf`
-    link.target = '_blank'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  } catch (error) {
-    console.error('Download error:', error)
-    alert('Fayl yuklab olishda xatolik yuz berdi')
-  }
+  alert(`Sertifikat URL topilmadi: ${certId} - ${certName}`)
 }
 
 const getFullName = (cert) => {

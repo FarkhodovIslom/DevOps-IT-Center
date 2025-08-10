@@ -1,5 +1,5 @@
 <template>
-  <section class="benefits-section">
+  <section id="about" class="benefits-section">
     <div class="benefits-container">
       <!-- Section Header -->
       <div class="section-header">
