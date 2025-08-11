@@ -15,6 +15,11 @@ const routes = [
     component: () => import('../pages/Certificates.vue') 
   },
   { 
+    path: '/certificates.html', 
+    name: 'Certificates', 
+    component: () => import('../pages/Certificates.vue') 
+  },
+  { 
     path: '/blog', 
     name: 'Blog', 
     component: () => import('../pages/Blog.vue')
