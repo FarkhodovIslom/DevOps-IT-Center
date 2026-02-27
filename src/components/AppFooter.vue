@@ -66,7 +66,7 @@
       <div class="footer-bottom">
         <div class="footer-bottom-content">
           <div class="copyright">
-            <p>© DevOps IT Center 2024. Barcha huquqlar himoyalangan</p>
+            <p>© DevOps IT Center 2026. Barcha huquqlar himoyalangan</p>
           </div>
           
           <div class="social-links">
