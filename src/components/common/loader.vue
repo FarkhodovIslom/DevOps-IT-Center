@@ -40,7 +40,7 @@ onMounted(() => {
 .loader-container {
   width: 100%;
   height: 100%;
-  background-color: #f9fcfc;
+  background-color: var(--bg-light);
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0;
   z-index: 1200;
@@ -67,14 +67,15 @@ onMounted(() => {
   top: 0;
   padding: 0;
   margin: 0;
-  color: #C8B6FF;
+  color: var(--gray-mid);
   animation: text_713 3.5s ease both infinite;
   font-size: 1rem;
+  font-weight: var(--weight-bold);
   letter-spacing: 1px;
 }
 
 .load {
-  background-color: #9A79FF;
+  background-color: var(--royal-blue);
   border-radius: 50px;
   display: block;
   height: 16px;
@@ -90,7 +91,7 @@ onMounted(() => {
   content: "";
   width: 100%;
   height: 100%;
-  background-color: #D1C2FF;
+  background-color: rgba(10, 37, 88, 0.3); /* royal blue with opacity */
   border-radius: inherit;
   animation: loading2_713 3.5s ease both infinite;
 }
