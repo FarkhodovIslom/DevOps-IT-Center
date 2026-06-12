@@ -1,37 +1,25 @@
 <template>
   <main>
     <AppHero />
-    <AppServices />
-    <BenefitsSection />
+    <AppLearningPaths />
     <AppCourses />
-    <TeachersSection />
+    <AppMentors />
+    <BenefitsSection />
+    <TestimonialsSection />
     <AppLocation />
     <ContactSection />
     <AppFAQ />
   </main>
 </template>
 
-<script>
-import AppHero from '../components/AppHero.vue'
-import AppServices from '../components/AppServices.vue'
-import BenefitsSection from '../components/BenefitsSection.vue'
-import AppCourses from '../components/AppCourses.vue'
-import AppLocation from '../components/AppLocation.vue'
-import TeachersSection from '../components/TeachersSection.vue'
-import ContactSection from '../components/ContactSection.vue'
-import AppFAQ from '../components/AppFAQ.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    AppHero,
-    AppServices,
-    BenefitsSection,
-    AppCourses,
-    AppLocation,
-    TeachersSection,
-    ContactSection,
-    AppFAQ
-  }
-}
+<script setup lang="ts">
+import AppHero from '@/components/home/AppHero.vue'
+import AppLearningPaths from '@/components/home/AppLearningPaths.vue'
+import AppCourses from '@/components/home/AppCourses.vue'
+import AppMentors from '@/components/home/AppMentors.vue'
+import BenefitsSection from '@/components/home/BenefitsSection.vue'
+import TestimonialsSection from '@/components/home/TestimonialsSection.vue'
+import AppLocation from '@/components/home/AppLocation.vue'
+import ContactSection from '@/components/home/ContactSection.vue'
+import AppFAQ from '@/components/home/AppFAQ.vue'
 </script>

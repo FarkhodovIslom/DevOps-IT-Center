@@ -33,7 +33,7 @@
         <div class="blog-content">
           <div class="blog-meta">
             <span class="blog-type">{{ blog.type || 'Maqola' }}</span>
-            <span class="blog-views"><i class="fas fa-eye"></i> {{ formatViews(blog.views) }}</span>
+            <span class="blog-views"><Eye :size="16" /> {{ formatViews(blog.views) }}</span>
           </div>
           
           <h3 class="blog-card-title">{{ blog.title }}</h3>
@@ -53,7 +53,7 @@
     <div v-if="selectedBlog" class="blog-modal" @click="closeModal">
       <div class="modal-content" @click.stop>
         <button class="close-btn" @click="closeModal">
-            <i class="fa-solid fa-xmark"></i>
+            <X :size="24" />
         </button>
         
         <div v-if="selectedBlog.images && selectedBlog.images.length > 0" class="modal-image">
@@ -63,7 +63,7 @@
         <div class="modal-body">
           <div class="modal-meta">
             <span class="blog-type">{{ selectedBlog.type || 'Maqola' }}</span>
-            <span class="blog-views"><i class="fas fa-eye"></i> {{ formatViews(selectedBlog.views) }}</span>
+            <span class="blog-views"><Eye :size="16" /> {{ formatViews(selectedBlog.views) }}</span>
             <span class="blog-date">{{ formatDate(selectedBlog.created_at) }}</span>
           </div>
           
@@ -78,6 +78,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import DOMPurify from 'dompurify'
+import { Eye, X } from 'lucide-vue-next'
 
 const blogs = ref([])
 const selectedBlog = ref(null)
@@ -89,7 +91,7 @@ const fetchBlogs = async () => {
   error.value = null
   
   try {
-    const response = await fetch('https://devops-itc.alwaysdata.net/api/blogs/')
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/blogs/`)
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
@@ -141,14 +143,19 @@ const stripHtml = (html) => {
   return div.textContent || div.innerText || ''
 }
 
-// HTML kontentni to'g'ri format qilish
+// HTML kontentni to'g'ri format qilib, XSS dan himoyalash
 const formatBody = (body) => {
   if (!body) return ''
   
-  // Agar body HTML teglari bilan kelsa, ularni to'g'ri parse qilish
-  return body
+  const formatted = body
     .replace(/\n/g, '<br>')  // Yangi qatorlarni <br> ga aylantirish
     .replace(/&nbsp;/g, ' ') // &nbsp; ni oddiy bo'shliqqa aylantirish
+  
+  // DOMPurify bilan HTML ni tozalash (XSS himoyasi)
+  return DOMPurify.sanitize(formatted, {
+    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'br', 'p', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'span'],
+    ALLOWED_ATTR: ['href', 'target', 'rel']
+  })
 }
 
 onMounted(() => {

@@ -1,13 +1,10 @@
 <template>
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Asosiy navigatsiya">
     <div class="nav-container">
       <!-- Logo -->
-      <div class="logo-section">
         <router-link to="/" class="logo">
-          <img src="/assets/logos/logo-textright__white.png" width="110" alt="DevOps">
+          <img src="/assets/logos/logo-textright__black.png" width="110" alt="DevOps">
         </router-link>
-      </div>
-
       <!-- Navigation Menu -->
       <div class="nav-menu">
         <!-- Kurslar Dropdown -->
@@ -25,7 +22,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-desktop"></i>
+                  <Monitor :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Kompytuer Savodxonligi</div>
@@ -35,7 +32,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-award"></i>
+                  <Award :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Malaka Oshirish (Soha xodimlari)</div>
@@ -45,7 +42,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-book-open"></i>
+                  <BookOpen :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Foundation (ITga kirish)</div>
@@ -55,7 +52,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-laptop-code"></i>
+                  <Laptop :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Front-End Dasturlash</div>
@@ -65,7 +62,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-pen-nib"></i>
+                  <PenTool :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Grafik va Web dizayn</div>
@@ -75,7 +72,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-cube"></i>
+                  <Cuboid :size="24" />
                 </div>
                 <div>
                   <div class="item-title">3D Modeling (3D Max, AutoCad)</div>
@@ -85,7 +82,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-mobile"></i>
+                  <Smartphone :size="24" />
                 </div>
                 <div>
                   <div class="item-title">SMM + Mobilografiya</div>
@@ -95,7 +92,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-calculator"></i>
+                  <Calculator :size="24" />
                 </div>
                 <div>
                   <div class="item-title">1C Buxgalteriya</div>
@@ -105,7 +102,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-robot"></i>
+                  <Bot :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Robototexnika</div>
@@ -115,7 +112,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-book-open-reader"></i>
+                  <BookOpenCheck :size="24" />
                 </div>
                 <div>
                   <div class="item-title">IT English - Ingliz tili</div>
@@ -125,7 +122,7 @@
 
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-square-root-variable"></i>
+                  <Sigma :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Matematika</div>
@@ -149,7 +146,7 @@
             <div v-if="activeDropdown === 'xizmatlar'" class="dropdown-menu">
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-pen-ruler"></i>
+                  <Ruler :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Grafik dizaynerlik ishlari</div>
@@ -158,7 +155,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-code"></i>
+                  <Code :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Websayt tayyorlash</div>
@@ -167,7 +164,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-store"></i>
+                  <Store :size="24" />
                 </div>
                 <div>
                   <div class="item-title">SMM xizmatlar</div>
@@ -176,7 +173,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-globe"></i>
+                  <Globe :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Online xizmatlar</div>
@@ -185,7 +182,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-wrench"></i>  
+                  <Wrench :size="24" />  
                 </div>
                 <div>
                   <div class="item-title">Kompyuterni tamirlash</div>
@@ -194,7 +191,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-user-astronaut"></i>
+                  <User :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Telegram Bot</div>
@@ -203,7 +200,7 @@
               </a>
               <a href="#" class="dropdown-item">
                 <div class="item-icon">
-                  <i class="fa-solid fa-laptop"></i>
+                  <Laptop :size="24" />
                 </div>
                 <div>
                   <div class="item-title">Kompytuer sotuvi</div>
@@ -223,25 +220,25 @@
         </div>
       </div>
 
-      <!-- Right Section -->
       <div class="nav-actions">
         <router-link to="/certificates">
-          <button class="cert-btn">
-            <i class="cert-icon fas fa-award" style="transform: translateY(3px);"></i>
+          <button class="btn-ghost">
             Sertifikatlar
           </button>
         </router-link>
-        
-        <a href="tel:+998957781199" class="phone-btn">
-          <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-          </svg>
+        <a href="tel:+998957781199" class="btn-royal">
           +998 95 778 11 99
         </a>
       </div>
 
       <!-- Mobile Menu Toggle -->
-      <button class="mobile-toggle" @click="toggleMobileMenu" :class="{ 'active': mobileMenuOpen }">
+      <button 
+        class="mobile-toggle" 
+        @click="toggleMobileMenu" 
+        :class="{ 'active': mobileMenuOpen }"
+        aria-label="Mobil menyuni ochish/yopish"
+      :aria-expanded="mobileMenuOpen"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -311,89 +308,43 @@
   </nav>
 </template>
 
-<script>
-export default {
-  name: 'AppNavbar',
-  data() {
-    return {
-      activeDropdown: null,
-      mobileMenuOpen: false,
-      mobileDropdowns: {
-        kurslar: false,
-        xizmatlar: false
-      }
-    }
-  },
-  methods: {
-    showDropdown(dropdown) {
-      this.activeDropdown = dropdown;
-    },
-    hideDropdown(dropdown) {
-      if (this.activeDropdown === dropdown) {
-        this.activeDropdown = null;
-      }
-    },
-    toggleMobileMenu() {
-      this.mobileMenuOpen = !this.mobileMenuOpen;
-    },
-    toggleMobileDropdown(dropdown) {
-      this.mobileDropdowns[dropdown] = !this.mobileDropdowns[dropdown];
-    }
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { Monitor, Award, BookOpen, Laptop, PenTool, Cuboid, Smartphone, Calculator, Bot, BookOpenCheck, Sigma, Ruler, Code, Store, Globe, Wrench, User } from 'lucide-vue-next'
+
+const activeDropdown = ref<string | null>(null)
+const mobileMenuOpen = ref(false)
+const mobileDropdowns = reactive<Record<string, boolean>>({
+  kurslar: false,
+  xizmatlar: false
+})
+
+const showDropdown = (dropdown: string) => {
+  activeDropdown.value = dropdown
+}
+
+const hideDropdown = (dropdown: string) => {
+  if (activeDropdown.value === dropdown) {
+    activeDropdown.value = null
   }
+}
+
+const toggleMobileMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+const toggleMobileDropdown = (dropdown: string) => {
+  mobileDropdowns[dropdown] = !mobileDropdowns[dropdown]
 }
 </script>
 
 <style scoped>
-.navbar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  border-bottom: 0.1px solid #19134f1c;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  height: 70px;
-}
-
-/* Logo Section */
+/* Scoped layout rules */
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  transform: translateY(0.6px);
-  filter: saturate(150%) brightness(140%);
 }
 
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.5px;
-}
-
-.logo-subtitle {
-  font-size: 0.875rem;
-  color: #e0e7ff;
-  font-weight: 600;
-  margin-left: -0.5rem;
-}
-
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-3px); }
-}
-
-/* Navigation Menu */
 .nav-menu {
   display: flex;
   align-items: center;
@@ -408,37 +359,17 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
+  color: var(--gray-dark);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-body);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s;
-}
-
-.nav-link:hover::before {
-  left: 100%;
+  padding: 0.5rem;
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  color: var(--black);
 }
 
 .dropdown-icon {
@@ -451,54 +382,28 @@ export default {
   transform: rotate(180deg);
 }
 
-/* Dropdown Menu - Обновленная версия для поддержки большего количества элементов */
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 1rem);
   left: 0;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   min-width: 300px;
   max-width: 350px;
   max-height: 500px;
   overflow-y: auto;
-  overflow-x: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  /* Добавляем кастомный скроллбар */
-  scrollbar-width: thin;
-  scrollbar-color: #667eea #f1f1f1;
-}
-
-/* Кастомный скроллбар для Webkit браузеров */
-.dropdown-menu::-webkit-scrollbar {
-  width: 6px;
-}
-
-.dropdown-menu::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb {
-  background: #667eea;
-  border-radius: 10px;
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  border: 1px solid var(--gray-light);
 }
 
 .dropdown-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.9rem 1.5rem;
-  color: #374151;
+  padding: 1rem 1.5rem;
+  color: var(--gray-dark);
   text-decoration: none;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid #f3f4f6;
-  position: relative;
+  border-bottom: 1px solid var(--bg-light);
 }
 
 .dropdown-item:last-child {
@@ -506,9 +411,7 @@ export default {
 }
 
 .dropdown-item:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  transform: translateX(5px);
+  background: var(--bg-light);
 }
 
 .item-icon {
@@ -518,90 +421,28 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.dropdown-item:hover .item-icon {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
+  background: var(--white);
+  border-radius: 8px;
+  color: var(--black);
 }
 
 .item-title {
-  font-weight: 600;
-  font-size: 0.92rem;
+  font-weight: var(--weight-bold);
+  font-size: 0.95rem;
   margin-bottom: 0.25rem;
-  line-height: 1.2;
 }
 
 .item-desc {
-  font-size: 0.78rem;
-  opacity: 0.7;
-  line-height: 1.3;
+  font-size: 0.85rem;
+  color: var(--gray-mid);
 }
 
-/* Nav Actions */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.cert-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.cert-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.cert-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.phone-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #00d4ff;
-  color: white;
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-}
-
-.phone-btn:hover {
-  background: #0099cc;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
-}
-
-.phone-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-/* Mobile Toggle */
 .mobile-toggle {
   display: none;
   flex-direction: column;
@@ -614,14 +455,13 @@ export default {
 
 .mobile-toggle span {
   width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
+  height: 2px;
+  background: var(--black);
   transition: all 0.3s ease;
 }
 
 .mobile-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: rotate(45deg) translate(5px, 5px);
 }
 
 .mobile-toggle.active span:nth-child(2) {
@@ -629,15 +469,13 @@ export default {
 }
 
 .mobile-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Menu - Updated */
 .mobile-menu {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  background: var(--white);
   padding: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--gray-light);
   max-height: 80vh;
   overflow-y: auto;
 }
@@ -655,54 +493,23 @@ export default {
   border: none;
   padding: 1rem;
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #374151;
+  font-weight: var(--weight-bold);
+  color: var(--black);
   cursor: pointer;
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.mobile-link:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.mobile-dropdown-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  transition: transform 0.3s ease;
-}
-
-.mobile-dropdown-icon.rotate {
-  transform: rotate(180deg);
 }
 
 .mobile-submenu {
-  background: #f8fafc;
-  border-radius: 0.75rem;
+  background: var(--bg-light);
+  border-radius: 12px;
   margin-top: 0.5rem;
   overflow: hidden;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 .mobile-sublink {
   display: block;
   padding: 0.75rem 1.5rem;
-  color: #6b7280;
+  color: var(--gray-dark);
   text-decoration: none;
-  border-bottom: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-}
-
-.mobile-sublink:last-child {
-  border-bottom: none;
-}
-
-.mobile-sublink:hover {
-  background: #667eea;
-  color: white;
 }
 
 .mobile-actions {
@@ -712,117 +519,38 @@ export default {
   gap: 1rem;
 }
 
-.mobile-actions .router-links {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.mobile-cert-btn, .mobile-phone-btn {
-  padding: 1rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.mobile-cert-btn {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-  cursor: pointer;
-  width: 100%;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.55, 1);
-}
-.mobile-cert-btn:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-color: #fff;
-  cursor: pointer;
-  width: 100%;
-}
-
-.mobile-phone-btn {
-  background: #00d4ff;
-  color: white;
-}
-
 /* Animations */
 .dropdown-enter-active, .dropdown-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
-
-.dropdown-enter-from {
+.dropdown-enter-from, .dropdown-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
-}
-
-.dropdown-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
 
 .mobile-menu-enter-active, .mobile-menu-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity 0.2s ease;
 }
-
 .mobile-menu-enter-from, .mobile-menu-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
 }
 
 .mobile-dropdown-enter-active, .mobile-dropdown-leave-active {
-  transition: all 0.3s ease;
+  transition: max-height 0.3s ease;
 }
-
 .mobile-dropdown-enter-from, .mobile-dropdown-leave-to {
-  opacity: 0;
   max-height: 0;
 }
-
 .mobile-dropdown-enter-to, .mobile-dropdown-leave-from {
-  opacity: 1;
   max-height: 300px;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .nav-menu, .nav-actions {
     display: none;
   }
-  
   .mobile-toggle {
     display: flex;
-  }
-  
-  .nav-container {
-    padding: 0 1rem;
-  }
-  
-  .logo-text {
-    font-size: 1.25rem;
-  }
-  
-  .logo-subtitle {
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo-subtitle {
-    display: none;
-  }
-  
-  .mobile-menu {
-    padding: 1.5rem;
-  }
-}
-
-/* Дополнительные стили для больших экранов когда дропдаун может быть длинным */
-@media (min-height: 800px) {
-  .dropdown-menu {
-    max-height: 600px;
   }
 }
 </style>

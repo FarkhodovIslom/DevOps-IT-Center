@@ -1,23 +1,17 @@
 <template>
   <div id="app">
-    <Loader />
+    <Loader v-if="showLoader" @done="showLoader = false" />
     <AppNavbar />
     <router-view />
     <AppFooter />
   </div>
 </template>
 
-<script>
-import Loader from './components/ui/loader.vue'
-import AppNavbar from './components/AppNavbar.vue'
-import AppFooter from './components/AppFooter.vue'
+<script setup lang="ts">
+import { ref } from 'vue'
+import Loader from '@/components/common/loader.vue'
+import AppNavbar from '@/layouts/AppNavbar.vue'
+import AppFooter from '@/layouts/AppFooter.vue'
 
-export default {
-  name: 'App',
-  components: {
-    Loader,
-    AppNavbar,
-    AppFooter
-  }
-}
+const showLoader = ref(true)
 </script>

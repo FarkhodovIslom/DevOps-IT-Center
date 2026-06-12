@@ -156,7 +156,7 @@ const loading = ref(false)
 const error = ref(null)
 const searchAttempted = ref(false)
 
-const API_BASE = 'https://devops-itc.alwaysdata.net'
+const API_BASE = import.meta.env.VITE_API_BASE_URL
 
 // Computed
 const isFormValid = computed(() => {
